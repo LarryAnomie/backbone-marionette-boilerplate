@@ -1,0 +1,92 @@
+%svg {
+	background-repeat: no-repeat;
+}
+
+.svg-arrow-right { 
+	background-position: 0 0;
+	@extend %svg;
+	background-image: url(icons/icons.svg);
+}
+
+.svg-arrow-right-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-chevron-left { 
+	background-position: 0 -100px;
+	@extend %svg;
+	background-image: url(icons/icons.svg);
+}
+
+.svg-chevron-left-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-chevron-right { 
+	background-position: 0 -200px;
+	@extend %svg;
+	background-image: url(icons/icons.svg);
+}
+
+.svg-chevron-right-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-close { 
+	background-position: 0 -300px;
+	@extend %svg;
+	background-image: url(icons/icons.svg);
+}
+
+.svg-close-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-minus { 
+	background-position: 0 -400px;
+	@extend %svg;
+	background-image: url(icons/icons.svg);
+}
+
+.svg-minus-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-plus { 
+	background-position: 0 -500px;
+	@extend %svg;
+	background-image: url(icons/icons.svg);
+}
+
+.svg-plus-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-sound-off { 
+	background-position: 0 -600px;
+	@extend %svg;
+	background-image: url(icons/icons.svg);
+}
+
+.svg-sound-off-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-sound-on { 
+	background-position: 0 -700px;
+	@extend %svg;
+	background-image: url(icons/icons.svg);
+}
+
+.svg-sound-on-dims {
+	width: 100px;
+	height: 100px;
+}
+

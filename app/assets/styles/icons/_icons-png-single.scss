@@ -1,0 +1,84 @@
+%svg {
+	background-repeat: no-repeat;
+}
+
+.svg-arrow-right { 
+	@extend %svg;
+	background-image: url(icons/arrow-right.png);
+}
+
+.svg-arrow-right-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-chevron-left { 
+	@extend %svg;
+	background-image: url(icons/chevron-left.png);
+}
+
+.svg-chevron-left-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-chevron-right { 
+	@extend %svg;
+	background-image: url(icons/chevron-right.png);
+}
+
+.svg-chevron-right-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-close { 
+	@extend %svg;
+	background-image: url(icons/close.png);
+}
+
+.svg-close-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-minus { 
+	@extend %svg;
+	background-image: url(icons/minus.png);
+}
+
+.svg-minus-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-plus { 
+	@extend %svg;
+	background-image: url(icons/plus.png);
+}
+
+.svg-plus-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-sound-off { 
+	@extend %svg;
+	background-image: url(icons/sound-off.png);
+}
+
+.svg-sound-off-dims {
+	width: 100px;
+	height: 100px;
+}
+
+.svg-sound-on { 
+	@extend %svg;
+	background-image: url(icons/sound-on.png);
+}
+
+.svg-sound-on-dims {
+	width: 100px;
+	height: 100px;
+}
+

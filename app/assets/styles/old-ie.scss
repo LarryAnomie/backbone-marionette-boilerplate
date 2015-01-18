@@ -1,0 +1,17 @@
+// see http://jakearchibald.github.io/sass-ie/ for usage
+
+$old-ie: true;
+$fix-mqs: 65em;
+$icon-font-path: "/assets/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+
+// bower:scss
+@import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
+// endbower
+
+// order is important here
+
+@import "icons/icons-png-sprite"; // fallback png icons
+
+@import "all";
+
+
