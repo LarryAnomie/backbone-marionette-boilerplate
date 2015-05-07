@@ -1,0 +1,15 @@
+$icon-font-path: "/assets/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+
+//only using bootstraps normalize scss file, add whatever is neccesary for your project
+// for the whole thang, replace with :
+// @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/normalize.scss";
+
+// bower:scss
+@import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/normalize.scss";
+// endbower
+
+// order is important here
+
+@import "icons/icons-svg-sprite";
+
+@import "all";

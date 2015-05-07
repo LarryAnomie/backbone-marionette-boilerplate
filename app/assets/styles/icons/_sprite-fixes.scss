@@ -1,0 +1,11 @@
+// iconizr doesn't currently have an option to have seperate scss and svg directories
+// it uses a relative path, so this code fixes it
+
+$spritePath: "../images/svg/dist/icons";
+.svg-icon {
+    display: inline-block;
+    background-image: url("#{$spritePath}/icons.svg");
+    .no-svg & {
+        background-image: url("#{$spritePath}/icons.png");
+    }
+}

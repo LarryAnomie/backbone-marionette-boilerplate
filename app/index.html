@@ -1,0 +1,72 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>Dare Frontend Skeleton App</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <!-- Add to homescreen for Chrome on Android -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="icon" sizes="196x196" href="assets/images/touch/chrome-touch-icon-196x196.png">
+
+        <!-- Add to homescreen for Safari on iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Dare Frontend Skeleton App">
+
+        <!-- Tile icon for Win8 (144x144 + tile color) -->
+        <meta name="msapplication-TileImage" content="assets/images/touch/ms-touch-icon-144x144-precomposed.png">
+        <meta name="msapplication-TileColor" content="#3372DF">
+
+        <!-- build:css(.tmp) assets/styles/old-ie.css -->
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="assets/styles/old-ie.css">
+        <![endif]-->
+        <!-- endbuild -->
+
+        <!-- build:css(.tmp) assets/styles/main.css -->
+        <!--[if gt IE 8]><!-->
+            <link rel="stylesheet" href="assets/styles/main.css">
+        <!--<![endif]-->
+        <!-- endbuild -->
+
+        <!-- build:js assets/scripts/vendor/modernizr.js -->
+        <script src="assets/bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+
+    </head>
+    <body>
+
+        <div id="app" class="app">
+            <header id="header" class="ja-main header">
+                <nav id="app-nav" class="js-nav">
+                    <ul class="app-nav__menu">
+                        <li class="app-nav__menu-item"><a href="/">Home</a></li>
+                        <li class="app-nav__menu-item"><a href="/pages/about">About</a></li>
+                        <li class="app-nav__menu-item"><a href="/pages/contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <main id="main" class="js-main main"></main>
+            <footer id="footer" class="js-footer footer"></footer>
+        </div>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+        <script data-main="assets/scripts/main.js" src="assets/scripts/require.js"></script>
+</body>
+</html>
+
