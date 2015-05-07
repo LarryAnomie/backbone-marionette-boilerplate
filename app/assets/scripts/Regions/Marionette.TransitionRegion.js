@@ -11,10 +11,10 @@ define([
     Marionette.TransitionRegion = Marionette.Region.extend({
 
         transitionInCss: {
-            opacity: 0
+            //opacity: 0
         },
 
-        concurrentTransition: false,
+        concurrentTransition: true,
 
         // This is queue manager code that doesn't belong in regions.
         // maybe when this transition region is in Marionette,

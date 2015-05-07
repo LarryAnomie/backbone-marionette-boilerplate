@@ -23,7 +23,7 @@ define([
             visible : 'page--is-visible'
         },
 
-        duration : 200,
+        duration : 250,
 
         onShow: function() {
             // no op
@@ -55,10 +55,14 @@ define([
 
             var view = this,
                 delay,
+
                 animateIn = function() {
                     view.$el
                     .addClass(view.classes.animatingIn)
-                    .velocity('transition.slideRightIn', {
+                    .velocity({
+                        translateZ: 0, // Force HA by animating a 3D property
+                        translateX: '-100%',
+                    }, {
                         duration: view.duration,
                         complete: function() {
                             view.trigger('animateIn');
@@ -76,6 +80,7 @@ define([
             // call animateIn after a short delay to allow for animating DOM element
             _.delay(animateIn, 10);
 
+
         },
 
         animateOut: function(callback, transition) {
@@ -84,7 +89,7 @@ define([
 
             view.$el
             .addClass(view.classes.animatingOut)
-            .velocity('transition.slideLeftOut', {
+            .velocity('reverse', {
                 duration: view.duration,
                 complete: function() {
 
