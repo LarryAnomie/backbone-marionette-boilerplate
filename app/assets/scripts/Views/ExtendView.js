@@ -1,37 +1,46 @@
-/* global console, APP*/
+/* global define, Modernizr */
+
 define([
     'jquery',
     'lodash',
-    'backbone'
-], function ($, _, Backbone) {
+    'backbone',
+    'marionette',
+    'velocity',
+    'velocityUi'
+], function($, _, Backbone, Marionette, velocity) {
 
     'use strict';
 
     /**
-     *
-     * Backbone View extension, all views of type page extend this view
-     *
+     * Marionette ItemView extension, all views of type page extend this view
      */
-    var ExtendView = Backbone.View.extend({
+    var ExtendView = Marionette.ItemView.extend({
 
-        initialize: function () {
-
+        classes : {
+            page : 'page',
+            animatingIn : 'page--is-entering',
+            animatingOut : 'page--is-exiting',
+            visible : 'page--is-visible'
         },
 
-        onShow: function () {
+        duration : 1000,
+
+        onShow: function() {
             // no op
         },
 
-        afterShow: function () {
+        afterShow: function() {
             // no op
         },
 
-        render: function (options) {
+        render: function(options) {
+
+            console.log('extend render');
 
             options = options || {};
 
             if (options.page === true) {
-                this.$el.addClass('page');
+                this.$el.addClass(this.classes.page);
             }
 
             if (_.isFunction(this.onShow)) {
@@ -42,76 +51,51 @@ define([
 
         },
 
-        transitionIn: function (callback) {
+        animateIn: function(callback, transition) {
 
             var view = this,
-                delay;
+                delay,
+                animateIn = function() {
+                    view.$el
+                    .addClass(view.classes.animatingIn)
+                    .velocity('transition.slideRightIn', {
+                        duration: view.duration,
+                        complete: function() {
+                            view.trigger('animateIn');
 
-            var transitionIn = function () {
-
-                view.$el.addClass('is-entering is-visible');
-
-                if (typeof APP.transEndEventName === 'undefined') {
-                    view.$el.removeClass('is-entering');
-                    if (_.isFunction(callback)) {
-                        callback();
-                    }
-                } else {
-
-                    view.$el.on(APP.transEndEventName, function (e) {
-
-                        //console.log('--> transition end event target', e);
-
-                        // event is bubbling up from things like carousels
-                        if ($(e.target).hasClass('page')) {
-
-                            view.$el.removeClass('is-entering');
+                            view.$el.removeClass(view.classes.animatingIn);
 
                             if (_.isFunction(callback)) {
                                 callback();
                             }
                         }
                     });
-                }
 
-            };
+                };
 
-            _.delay(transitionIn, 20);
+            // call animateIn after a short delay to allow for animating DOM element
+            _.delay(animateIn, 10);
 
         },
 
-        transitionOut: function (callback) {
+        animateOut: function(callback, transition) {
 
             var view = this;
 
-            view.$el.removeClass('is-visible');
-            view.$el.addClass('is-exiting');
+            view.$el
+            .addClass(view.classes.animatingOut)
+            .velocity('transition.slideLeftOut', {
+                duration: view.duration,
+                complete: function() {
 
-            if (typeof APP.transEndEventName === 'undefined') {
+                    view.$el.removeClass(view.classes.animatingOut);
+                    view.trigger('animateOut');
 
-                view.$el.removeClass('is-entering');
-
-                if (_.isFunction(callback)) {
-                    callback();
-                }
-
-            } else {
-
-                view.$el.on(APP.transEndEventName, function (e) {
-                    //console.log('transition out target  =', e.target);
-
-                    if ($(e.target).hasClass('page')) {
-
-                        //console.log('is page');
-
-                        view.$el.removeClass('is-exiting');
-
-                        if (_.isFunction(callback)) {
-                            callback();
-                        }
+                    if (_.isFunction(callback)) {
+                        callback();
                     }
-                });
-            }
+                }
+            });
 
         }
 

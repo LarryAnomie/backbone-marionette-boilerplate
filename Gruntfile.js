@@ -46,12 +46,12 @@ module.exports = function(grunt) {
             gruntfile: {
                 files: ['Gruntfile.js']
             },
-              sass: {
-                files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+            sass: {
+                files: ['<%= config.app %>/assets/styles/**/*.{scss,sass}'],
                 tasks: ['sass:server', 'autoprefixer']
-              },
+            },
             styles: {
-                files: ['<%= config.app %>/assets/styles/{,*/}*.css'],
+                files: ['<%= config.app %>/assets/styles/**/*.css'],
                 tasks: ['newer:copy:styles', 'autoprefixer']
             },
             livereload: {
@@ -68,44 +68,44 @@ module.exports = function(grunt) {
 
         // The actual grunt server settings
         connect: {
-          options: {
-            port: 9000,
-            open: true,
-            livereload: 35729,
-            // Change this to '0.0.0.0' to access the server from outside
-            hostname: 'localhost'
-          },
-          livereload: {
             options: {
-              middleware: function(connect) {
-                return [
-                  connect.static('.tmp'),
-                  connect().use('/bower_components', connect.static('./bower_components')),
-                  connect.static(config.app)
-                ];
-              }
+                port: 9000,
+                open: true,
+                livereload: 35729,
+                // Change this to '0.0.0.0' to access the server from outside
+                hostname: 'localhost'
+            },
+            livereload: {
+                options: {
+                    middleware: function(connect) {
+                        return [
+                            connect.static('.tmp'),
+                            connect().use('/bower_components', connect.static('./bower_components')),
+                            connect.static(config.app)
+                        ];
+                    }
+                }
+            },
+            test: {
+                options: {
+                    open: false,
+                    port: 9001,
+                    middleware: function(connect) {
+                        return [
+                            connect.static('.tmp'),
+                            connect.static('test'),
+                            connect().use('/bower_components', connect.static('./bower_components')),
+                            connect.static(config.app)
+                        ];
+                    }
+                }
+            },
+            dist: {
+                options: {
+                    base: '<%= config.dist %>',
+                    livereload: false
+                }
             }
-          },
-          test: {
-            options: {
-              open: false,
-              port: 9001,
-              middleware: function(connect) {
-                return [
-                  connect.static('.tmp'),
-                  connect.static('test'),
-                  connect().use('/bower_components', connect.static('./bower_components')),
-                  connect.static(config.app)
-                ];
-              }
-            }
-          },
-          dist: {
-            options: {
-              base: '<%= config.dist %>',
-              livereload: false
-            }
-          }
         },
 
         // Empties folders to start fresh
@@ -150,28 +150,28 @@ module.exports = function(grunt) {
 
         // Compiles Sass to CSS and generates necessary files if requested
         sass: {
-          options: {
-            sourceMap: true,
-            includePaths: ['<%= config.app %>/assets/bower_components']
+            options: {
+                sourceMap: true,
+                includePaths: ['<%= config.app %>/assets/bower_components']
             },
-          dist: {
-            files: [{
-              expand: true,
-              cwd: '<%= config.app %>/assets/styles',
-              src: ['*.{scss,sass}'],
-              dest: '.tmp/assets/styles',
-              ext: '.css'
-            }]
-          },
-          server: {
-            files: [{
-              expand: true,
-              cwd: '<%= config.app %>/assets/styles',
-              src: ['*.{scss,sass}'],
-              dest: '.tmp/assets/styles',
-              ext: '.css'
-            }]
-          }
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.app %>/assets/styles',
+                    src: ['*.{scss,sass}'],
+                    dest: '.tmp/assets/styles',
+                    ext: '.css'
+                }]
+            },
+            server: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.app %>/assets/styles',
+                    src: ['*.{scss,sass}'],
+                    dest: '.tmp/assets/styles',
+                    ext: '.css'
+                }]
+            }
         },
 
         // Add vendor prefixed styles
@@ -378,22 +378,22 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-iconizr');
 
-  grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function (target) {
-    if (grunt.option('allow-remote')) {
-      grunt.config.set('connect.options.hostname', '0.0.0.0');
-    }
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
-    }
+    grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function(target) {
+        if (grunt.option('allow-remote')) {
+            grunt.config.set('connect.options.hostname', '0.0.0.0');
+        }
+        if (target === 'dist') {
+            return grunt.task.run(['build', 'connect:dist:keepalive']);
+        }
 
-    grunt.task.run([
-      'clean:server',
-      'concurrent:server',
-      'autoprefixer',
-      'connect:livereload',
-      'watch'
-    ]);
-  });
+        grunt.task.run([
+            'clean:server',
+            'concurrent:server',
+            'autoprefixer',
+            'connect:livereload',
+            'watch'
+        ]);
+    });
 
     grunt.registerTask('server', function(target) {
         grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');

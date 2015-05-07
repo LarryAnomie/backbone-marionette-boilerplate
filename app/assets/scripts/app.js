@@ -1,53 +1,76 @@
 /* global define, Modernizr */
+
 define([
     'jquery',
+    'backbone',
+    'marionette',
     'lodash',
-    'modernizr',
-    'Views/AppView'
-], function($, _, Modernizr, AppView) {
+    'Regions/MainRegion',
+    'Collections/PageCollection',
+    'data'
+], function($, Backbone, Marionette, _, MainRegion, PageCollection, data) {
 
     'use strict';
 
-    var App = function($el) {
+    var app = new Marionette.Application();
 
-        if ( !(this instanceof App) ) {
-            return new Apps( $el );
+    app.root = '';
+
+    function isMobile() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        return ((/iPhone|iPod|iPad|Android|BlackBerry|Opera Mini|IEMobile/).test(userAgent));
+    }
+
+    // All navigation that is relative should be passed through the navigate
+    // method, to be processed by the router. If the link has a `data-bypass`
+    // attribute, bypass the delegation completely.
+    $(document).on('click', 'a[href]:not([data-bypass])', function(evt) {
+        // Get the absolute anchor href.
+        var href = {
+            prop: $(this).prop('href'),
+            attr: $(this).attr('href')
+        };
+
+        // Get the absolute root.
+        var root = location.protocol + '//' + location.host + app.root;
+
+
+        // Ensure the root is part of the anchor href, meaning it's relative.
+        if (href.prop.slice(0, root.length) === root) {
+            // Stop the default event to ensure the link will not cause a page
+            // refresh.
+            evt.preventDefault();
+
+            // Note by using Backbone.history.navigate, router events will not be
+            // triggered.  If this is a problem, change this to navigate on your
+            // router.
+            Backbone.history.navigate(href.attr, true);
         }
+    });
 
-        _.extend(App.prototype, Backbone.Events);
+    console.log(data);
 
-        this.$el = $el;
-        this.window = window;
-        this.$window = $(window);
+    app.pages = new PageCollection(data);
 
-        this.instance = {};
+//var menu = new MenuView({collection: app.pages});
 
-        this.init();
+    //Organize application into regions corresponding to DOM elements
+    //Regions can contain views, Layouts, or subregions nested as necessary
+    app.addRegions({
+        headerRegion: '.js-header',
+        mainRegion: new MainRegion({
+            el: '.js-main'
+        }),
+        footerRegion: 'js-footer'
+    });
 
-    };
-
-
-    App.prototype.init = function () {
-
-        var self = this;
-
-        self.instance.appView = new AppView(this.$el);
-
+    app.addInitializer(function() {
         Backbone.history.start({
             pushState: true
         });
+    });
 
-        $(document).on('click', 'a:not([data-bypass])', function(evt) {
-            var href = $(this).attr('href'),
-                protocol = this.protocol + '//';
+    app.isMobile = isMobile();
 
-            if (href.slice(protocol.length) !== protocol) {
-                evt.preventDefault();
-                self.instance.appView.router.navigate(href, true);
-            }
-        });
-
-    };
-
-    return App;
+    return app;
 });

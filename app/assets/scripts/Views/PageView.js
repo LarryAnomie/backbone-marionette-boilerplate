@@ -6,16 +6,17 @@ define([
     'backbone',
     'marionette',
     'Views/ExtendView',
-    '../../bower_components/requirejs-text/text!../../templates/index.html'
+    '../../bower_components/requirejs-text/text!../../templates/index.html',
+
 ], function ($, _, Backbone, marionette, ExtendView, tmpl) {
 
     'use strict';
 
-    var HomeView = ExtendView.extend({
+    var PageView = ExtendView.extend({
 
         id: 'home-page',
 
-        className : 'page--home',
+        className : '',
 
         initialize: function (options) {
 
@@ -44,14 +45,12 @@ define([
 
             this.$el.html(template);
 
-            return ExtendView.prototype.render.apply(this, arguments);
-
         }
 
 
 
     });
 
-    return HomeView;
+    return PageView;
 
 });

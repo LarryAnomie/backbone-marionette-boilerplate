@@ -9,10 +9,11 @@
     "almond": "~0.2.9",
     "requirejs": "~2.1.14",
     "requirejs-text": "~2.0.12",
-    "backbone": "~1.1.2"
+    "backbone": "~1.1.2",
+    "velocity": "~1.2.2"
   },
   "devDependencies": {
     "backbone-validation": "~0.9.1",
-    "velocity": "~1.2.1"
+    "swiper": "~3.0.4"
   }
 }

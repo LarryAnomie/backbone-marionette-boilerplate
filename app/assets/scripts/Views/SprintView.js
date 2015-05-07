@@ -1,60 +1,40 @@
-/* global APP*/
+/* global define, Modernizr */
+
 define([
     'jquery',
     'lodash',
     'backbone',
+    'marionette',
     'Views/ExtendView',
-    'nprogress',
     '../../bower_components/requirejs-text/text!../../templates/sprint.html'
-], function ($, _, Backbone, ExtendView, NProgress, tmpl) {
+], function ($, _, Backbone, Marionette, ExtendView, tmpl) {
 
     'use strict';
 
     var SprintView = ExtendView.extend({
 
-        className: 'sprint-page',
-
         id: 'sprint-page',
 
-        initialize: function () {
-            var self = this;
+        className : 'page--sprint',
+
+        initialize: function (options) {
+
+            if (options.page) {
+                this.$el.addClass('page');
+            }
 
         },
 
-
         /**
-         *
-         * clean up view. Stop video.
-         *
+         * clean up view.
          */
-        remove: function () {
+/*        remove: function () {
+
+            console.log('view remove fn')
 
             // don't forget to call the original remove() function
             Backbone.View.prototype.remove.call(this);
-        },
-
-        onShow: function () {
-
-            /* var models = ExtendView.prototype.findNext(this.model.get('next'));
-
-            // store this array of nextModels
-            this.nextModels = models;
-
-            // this is called last so start preload here
-            ExtendView.prototype.preloadNext(models);*/
-
-            NProgress.done();
-
-        },
-
-        /**
-         *
-         * called after added to DOM and transition has ended
-         *
-         */
-        afterShow: function () {
-            // this.video.play();
-        },
+        },*/
 
         render: function () {
 
