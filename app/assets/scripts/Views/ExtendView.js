@@ -89,7 +89,10 @@ define([
 
             view.$el
             .addClass(view.classes.animatingOut)
-            .velocity('reverse', {
+            .velocity({
+                translateZ: 0, // Force HA by animating a 3D property
+                translateX: '-200%',
+            }, {
                 duration: view.duration,
                 complete: function() {
 

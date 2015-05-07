@@ -21,8 +21,10 @@ define([
         initialize: function (options) {
 
             if (options.page) {
-                this.$el.addClass('page');
+                this.$el.addClass('page page--' + this.model.attributes.name)
             }
+
+            console.log(this.model.attributes);
 
         },
 
