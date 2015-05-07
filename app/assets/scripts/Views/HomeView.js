@@ -6,7 +6,7 @@ define([
     'backbone',
     'marionette',
     'Views/ExtendView',
-    '../../bower_components/requirejs-text/text!../../templates/index.html'
+    '../../bower_components/requirejs-text/text!../../templates/page.html'
 ], function ($, _, Backbone, marionette, ExtendView, tmpl) {
 
     'use strict';

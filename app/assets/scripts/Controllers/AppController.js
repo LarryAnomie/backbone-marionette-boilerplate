@@ -5,9 +5,8 @@ define([
     'backbone',
     'marionette',
     '../Views/HomeView',
-    '../Views/SprintView',
     '../Views/PageView'
-], function(app, Backbone, Marionette, HomeView, SprintView, PageView) {
+], function(app, Backbone, Marionette, HomeView, PageView) {
     'use strict';
 
     var AppController = Backbone.Marionette.Controller.extend({
@@ -24,10 +23,6 @@ define([
                 pageName = 'home';
             }
 
-            console.log(pageName);
-
-            console.log('Router => Showing page: ' + pageName);
-
             pageModel = app.pages.findWhere({
                 name: pageName
             });
@@ -35,40 +30,19 @@ define([
             app.vent.trigger('menu:activate', pageModel);
 
             if (pageName === 'home') {
+
                 app.mainRegion.show(new HomeView({
-                    model: pageModel
+                    model: pageModel,
+                    page: true
                 }));
+
             } else {
+
                 app.mainRegion.show(new PageView({
                     model: pageModel,
                     page: true
                 }));
             }
-        },
-
-        //gets mapped to in AppRouter's appRoutes
-        index: function() {
-            app.mainRegion.show(
-                new HomeView({
-                    page: true
-                })
-            );
-        },
-
-        page2: function() {
-            app.mainRegion.show(
-                new SprintView({
-                    page: true
-                })
-            );
-        },
-
-        page3: function() {
-            app.mainRegion.show(
-                new PageView({
-                    page: true
-                })
-            );
         }
     });
 

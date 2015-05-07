@@ -23,7 +23,7 @@ define([
             visible : 'page--is-visible'
         },
 
-        duration : 1000,
+        duration : 200,
 
         onShow: function() {
             // no op

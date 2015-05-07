@@ -31,23 +31,25 @@
 }
 
 body {
-    width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
 }
 
-.app {
+/* .app {
     position: relative;
     width: 100%;
     height: 100%;
     color: #444;
     background: #ccc;
-}
+} */
 
 .header {
     width: 100%;
     z-index: 100;
+    position: fixed;
+    top: 0;
+    background: #e7e7e7;
 }
 
 .app-nav {
@@ -71,18 +73,24 @@ body {
 }
 
 .main {
-    position: relative;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+/*     -webkit-perspective: 1200px;
+    -moz-perspective: 1200px;
+    perspective: 1200px; */
 }
 
 .page {
-    position: absolute;
+    width: 100%;
     height: 100%;
+    position: absolute;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
     text-align: center;
-    background: green;
+    background: #0ac2d2;
+    padding: 4em 2em;
+    color: #fff;
     //transform: translate3d(0, 100%, 0);
 
     &.page--is-visible {
@@ -97,11 +105,11 @@ body {
 
     }
 
-    &.page--home {
-        background: red;
-    }
 }
 
+.page--home {
+    background: #f68dbb;
+}
 
 .absolute-center {
     text-align: center;
