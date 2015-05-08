@@ -7,14 +7,16 @@ define([
     'lodash',
     'Regions/MainRegion',
     'Collections/PageCollection',
-    'data'
-], function($, Backbone, Marionette, _, MainRegion, PageCollection, data) {
+    'Views/NavView',
+    'data',
+    'config/common'
+], function($, Backbone, Marionette, _, MainRegion, PageCollection, NavView, data, common) {
 
     'use strict';
 
     var app = new Marionette.Application();
 
-    app.root = '';
+    app.root = common.root;
 
     function isMobile() {
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -48,14 +50,14 @@ define([
         }
     });
 
-    console.log(data);
-
     app.pages = new PageCollection(data);
 
-//var menu = new MenuView({collection: app.pages});
+    var navView = new NavView({
+        collection: app.pages,
+        vent : app.vent
+    });
 
-    //Organize application into regions corresponding to DOM elements
-    //Regions can contain views, Layouts, or subregions nested as necessary
+    // Organize application into regions corresponding to DOM elements
     app.addRegions({
         headerRegion: '.js-header',
         mainRegion: new MainRegion({
@@ -65,6 +67,9 @@ define([
     });
 
     app.addInitializer(function() {
+
+        //app.headerRegion.show(navView);
+
         Backbone.history.start({
             pushState: true
         });

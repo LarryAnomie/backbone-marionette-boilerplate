@@ -16,7 +16,9 @@ require(['require-config'], function() {
                 });
 
                 // Start Marionette Application in desktop mode (default)
-                app.start();
+                $(function() {
+                    app.start();
+                });
 
                 window.app = app;
 

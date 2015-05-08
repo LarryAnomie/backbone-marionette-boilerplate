@@ -25,6 +25,10 @@ define([
 
         duration : 250,
 
+        getTitle : function() {
+            return this.model.attributes.title;
+        },
+
         onShow: function() {
             // no op
         },

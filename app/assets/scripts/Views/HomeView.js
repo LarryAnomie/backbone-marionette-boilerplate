@@ -23,6 +23,10 @@ define([
                 this.$el.addClass('page');
             }
 
+            this.getTitle = function() {
+                return this.model.attributes.title;
+            }
+
         },
 
         /**

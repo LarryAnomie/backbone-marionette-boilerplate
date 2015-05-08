@@ -17,6 +17,8 @@ define([
 
         showPage: function(pageName) {
 
+            console.log(arguments);
+
             var pageModel;
 
             if (pageName === null) {
@@ -33,14 +35,16 @@ define([
 
                 app.mainRegion.show(new HomeView({
                     model: pageModel,
-                    page: true
+                    page: true,
+                    id : 'page-' + pageModel.attributes.name
                 }));
 
             } else {
 
                 app.mainRegion.show(new PageView({
                     model: pageModel,
-                    page: true
+                    page: true,
+                    id : 'page-' + pageModel.attributes.name
                 }));
             }
         }

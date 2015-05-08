@@ -14,8 +14,6 @@ define([
 
     var PageView = ExtendView.extend({
 
-        id: 'home-page',
-
         className : '',
 
         initialize: function (options) {
@@ -27,6 +25,11 @@ define([
             console.log(this.model.attributes);
 
         },
+
+        getTitle : function() {
+            return this.model.attributes.title;
+        },
+
 
         /**
          *

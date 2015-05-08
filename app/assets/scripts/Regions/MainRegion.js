@@ -1,20 +1,32 @@
 /* global define, Modernizr */
 
 define([
-    'app',
+    '../config/common',
     'backbone',
     'marionette',
     'transitionRegion',
     'nprogress',
-], function(app, Backbone, Marionette, TransitionRegion, NProgress) {
+], function(common, Backbone, Marionette, TransitionRegion, NProgress) {
 
     'use strict';
+
+    console.log(common);
 
     var MainRegion = Marionette.TransitionRegion.extend({
 
         initialize: function(options) {
 
             //console.log(options);
+
+        },
+
+        updateDocTitle : function(view) {
+
+            var newTitle = view.getTitle();
+
+            console.log(newTitle);
+
+            document.title = common.baseTitle + ' | ' + newTitle;
 
         },
 
@@ -30,6 +42,7 @@ define([
             //console.log(view, region, options);
 
             NProgress.done();
+            this.updateDocTitle(view);
         },
 
           // ...
