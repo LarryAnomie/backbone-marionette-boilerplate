@@ -9,19 +9,17 @@ require(['require-config'], function() {
             'Routers/AppRouter'
             ], function (app, AppController, AppRouter) {
 
-                console.log(app);
-
                 app.appRouter = new AppRouter({
                     controller: new AppController()
                 });
 
-                // Start Marionette Application in desktop mode (default)
+                // Start Marionette Application on DOM ready
                 $(function() {
                     app.start();
                 });
 
+                // expose app
                 window.app = app;
-
 
             });
 
