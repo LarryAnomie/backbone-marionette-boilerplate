@@ -3,6 +3,8 @@ Backbone Marionette Boilerplate
 
 An opinionated boilerplate for rapidly building Marionette/Backbone front-end apps. It uses velocity.js for transitioning views.
 
+THIS IS A WORK IN PROGRESS AND IS UNFINISHED
+
 ## Requirements
 
 * Node
