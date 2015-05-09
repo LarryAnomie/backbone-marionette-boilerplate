@@ -1,7 +1,13 @@
 Backbone Marionette Boilerplate
 ===============================
 
-An opinionated boilerplate for rapidly building Marionette/Backbone front-end apps. It uses velocity.js for transitioning views.
+An opinionated boilerplate for rapidly building Marionette/Backbone front-end apps with transitioned views.
+
+Heavily borrows from :
+
+* https://github.com/jmeas/marionette.transition-region
+* https://github.com/ajaxray/marionette-boilerplate
+* https://github.com/thejameskyle/marionette-wires
 
 THIS IS A WORK IN PROGRESS AND IS UNFINISHED
 
@@ -10,7 +16,6 @@ THIS IS A WORK IN PROGRESS AND IS UNFINISHED
 * Node
 * Grunt
 * Bower
-* Ruby
 * Sass
 
 ## Getting started
