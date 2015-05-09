@@ -1,14 +1,14 @@
 {
     "version": "1.0.0",
-    "name": ">Dare Frontend Skeleton App",
+    "name": ">Backbone Marionette Transition Boilerplate",
     "launch_path": "/index.html",
-    "description": "A front-end template that helps you build fast, modern mobile web apps.",
+    "description": "An opinionated boilerplate for rapidly building Marionette/Backbone front-end apps with transitioned views.",
     "icons": {
         "128": "/assets/images/touch/icon-128x128.png"
     },
     "developer": {
-        "name": "Dare Tech Team",
-        "url": "http://thisisdare.com"
+        "name": "Lawrence Naman",
+        "url": "http://lawrencenaman.com"
     },
     "installs_allowed_from": [
         "*"
@@ -18,8 +18,8 @@
     },
     "locales": {
         "en": {
-            "name": "Dare Frontend Skeleton App",
-            "description": "A front-end template that helps you build fast, modern mobile web apps."
+            "name": "Backbone Marionette Transition Boilerplatep",
+            "description": "An opinionated boilerplate for rapidly building Marionette/Backbone front-end apps with transitioned views."
         }
     }
 }
