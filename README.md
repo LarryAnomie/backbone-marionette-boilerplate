@@ -1,4 +1,4 @@
-Backbone Marionette Boilerplate
+Backbone Marionette Transitions
 ===============================
 
 An opinionated boilerplate for rapidly building Marionette/Backbone front-end apps with transitioned views.

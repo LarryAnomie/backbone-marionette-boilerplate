@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "name": ">Backbone Marionette Transition Boilerplate",
+    "name": ">Backbone Marionette Transitions",
     "launch_path": "/index.html",
     "description": "An opinionated boilerplate for rapidly building Marionette/Backbone front-end apps with transitioned views.",
     "icons": {
@@ -18,7 +18,7 @@
     },
     "locales": {
         "en": {
-            "name": "Backbone Marionette Transition Boilerplatep",
+            "name": "Backbone Marionette Transitions",
             "description": "An opinionated boilerplate for rapidly building Marionette/Backbone front-end apps with transitioned views."
         }
     }

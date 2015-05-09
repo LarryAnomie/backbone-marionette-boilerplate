@@ -5,7 +5,7 @@ define(function () {
     'use strict';
 
     return {
-        baseTitle : 'Backbone Marionette Boilerplate',
+        baseTitle : 'Backbone Marionette Transitions',
         root : ''
     };
 });
