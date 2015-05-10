@@ -6,7 +6,6 @@ define(function() {
 
     function transitionEndEventName() {
         var i,
-            undefined,
             el = document.createElement('div'),
             transitions = {
                 'transition': 'transitionend',

@@ -4,9 +4,8 @@ define([
     'marionette',
     'views/NavItemView'
 ], function (Marionette, NavItemView) {
-    'use strict';
 
-    console.log(NavItemView)
+    'use strict';
 
     var NavView = Marionette.CollectionView.extend({
 

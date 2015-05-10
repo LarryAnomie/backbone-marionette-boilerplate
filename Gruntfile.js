@@ -76,7 +76,7 @@ module.exports = function(grunt) {
                 hostname: 'localhost',
 
                 // http://danburzo.ro/grunt/chapters/server/
-                middleware: function(connect, options) {
+/*                middleware: function(connect, options) {
 
                     var middleware = [];
 
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
 
                     return middleware;
 
-                }
+                }*/
 
             },
 

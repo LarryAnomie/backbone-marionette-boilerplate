@@ -1,11 +1,13 @@
 /*global define */
 
 define([
+    'jquery',
+    'lodash',
     'marionette',
     '../models/PageModel',
     '../views/PageView',
     '../../bower_components/requirejs-text/text!../../templates/NavItemView.html',
-], function(Marionette, Page, PageView, tmpl) {
+], function($, _, Marionette, Page, PageView, tmpl) {
     'use strict';
 
     var NavItemView = Marionette.ItemView.extend({
@@ -15,10 +17,6 @@ define([
         className: 'app-nav__menu-item',
 
         model: Page,
-
-        ui: {
-            link: 'a'
-        },
 
         events: {
             'click a': 'activateMenu'
@@ -44,23 +42,19 @@ define([
         modelEvents: {
             'change:active': function() {
 
-                console.log('change active');
+                console.log(this.model.get('name'), ' navItemViews model active attribute changed');
                 this.render();
             }
         },
 
-        activateMenu: function(event) {
-            /*            window.app.vent.trigger('menu:activate', this.model);
-            window.app.main.show(new PageView({model: this.model}));*/
-        },
-
         onRender: function() {
-            console.log('onRender');
+            console.log(this.model.get('name'), ' navItemView onRender');
+            console.log(this.model.get('active'), this.$el);
 
             if (this.model.get('active')) {
                 this.$el.addClass(this.activeClass);
             } else {
-                // not sure why this is needed
+                // think this is needed because ItemView render doesn't destroy view?
                 this.$el.removeClass(this.activeClass);
             }
         }

@@ -7,7 +7,6 @@ define([
     'marionette',
     'Views/ExtendView',
     '../../bower_components/requirejs-text/text!../../templates/page.html',
-
 ], function ($, _, Backbone, marionette, ExtendView, tmpl) {
 
     'use strict';
@@ -19,14 +18,14 @@ define([
         initialize: function (options) {
 
             if (options.page) {
-                this.$el.addClass('page page--' + this.model.attributes.name)
+                this.$el.addClass('page page--' + this.model.attributes.name);
             }
 
             this.getTitle = function() {
                 return this.model.attributes.title;
-            }
+            };
 
-           this.transitionType = 'js';
+            this.transitionType = 'js';
 
         },
 

@@ -25,7 +25,7 @@ define([
 
             this.getTitle = function() {
                 return this.model.attributes.title;
-            }
+            };
 
             this.transitionType = 'css';
 

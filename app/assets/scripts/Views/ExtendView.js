@@ -128,9 +128,6 @@ define([
 
                                 view.$el.removeClass(view.classes.animatingIn);
 
-                                // force reflow
-                                view.$el[0].offsetHeight;
-
                                 if (_.isFunction(callback)) {
                                     callback();
                                 }

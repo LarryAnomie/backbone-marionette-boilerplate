@@ -94,7 +94,7 @@ define([
 
             // Otherwise, execute both transitions at the same time
             else if (animateOut && concurrent) {
-                console.log('transition at the same time')
+                console.log('transition at the same time');
                 // If the old view needs to stay e.g. a view transitions in over the top
                 // don't call this
                 currentView.animateOut();
