@@ -73,8 +73,34 @@ module.exports = function(grunt) {
                 open: true,
                 livereload: 35729,
                 // Change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
+                hostname: 'localhost',
+
+                // http://danburzo.ro/grunt/chapters/server/
+                middleware: function(connect, options) {
+
+                    var middleware = [];
+
+                    // 1. mod-rewrite behavior
+                    var rules = [
+                        '!\\.html|\\.js|\\.css|\\.svg|\\.jp(e?)g|\\.png|\\.gif$ /index.html'
+                    ];
+                    middleware.push(rewrite(rules));
+
+                    // 2. original middleware behavior
+                    var base = options.base;
+                    if (!Array.isArray(base)) {
+                        base = [base];
+                    }
+                    base.forEach(function(path) {
+                        middleware.push(connect.static(path));
+                    });
+
+                    return middleware;
+
+                }
+
             },
+
             livereload: {
                 options: {
                     middleware: function(connect) {

@@ -10,10 +10,12 @@ define([
 
     Marionette.TransitionRegion = Marionette.Region.extend({
 
+        // css to apply to el before transitioning
         transitionInCss: {
             //opacity: 0
         },
 
+        // should transitions on leaving and entering view run at the same time
         concurrentTransition: true,
 
         // This is queue manager code that doesn't belong in regions.
@@ -56,6 +58,8 @@ define([
 
         show: function(view, options) {
 
+            console.log('show');
+
             // If animating out, set the animateInQueue.
             // This new view will be what is transitioned in
             if (this._animatingOut) {
@@ -90,15 +94,27 @@ define([
 
             // Otherwise, execute both transitions at the same time
             else if (animateOut && concurrent) {
+                console.log('transition at the same time')
+                // If the old view needs to stay e.g. a view transitions in over the top
+                // don't call this
                 currentView.animateOut();
-                return this._onTransitionOut();
+                //this.triggerMethod('animateOut', this.currentView);
+                return this._onTransitionOut(currentView);
             } else {
                 return this._onTransitionOut();
             }
         },
 
         // This is most of the original show function.
-        _onTransitionOut: function() {
+        _onTransitionOut: function(oldView) {
+
+/*        if (oldView) {
+            oldView.animateOut();
+        }*/
+
+            console.log('_onTransitionOut');
+
+            // does this do anything?
             this.triggerMethod('animateOut', this.currentView);
 
             var view = this._inQueueView;

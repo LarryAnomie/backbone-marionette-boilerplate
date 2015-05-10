@@ -59,7 +59,7 @@ define([
 
     // Organize application into regions corresponding to DOM elements
     app.addRegions({
-        headerRegion: '.js-header',
+        headerRegion: '.js-nav',
         mainRegion: new MainRegion({
             el: '.js-main'
         }),
@@ -68,7 +68,7 @@ define([
 
     app.addInitializer(function() {
 
-        //app.headerRegion.show(navView);
+        app.headerRegion.show(navView);
 
         Backbone.history.start({
             pushState: true

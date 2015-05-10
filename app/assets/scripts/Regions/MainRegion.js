@@ -24,7 +24,7 @@ define([
 
             var newTitle = view.getTitle();
 
-            console.log(newTitle);
+            console.log(view);
 
             document.title = common.baseTitle + ' | ' + newTitle;
 
@@ -33,8 +33,6 @@ define([
         onBeforeShow: function(view, region, options) {
             console.log('the view has not been shown yet');
             //console.log(view, region, options);
-
-            NProgress.start();
         },
 
         onShow: function(view, region, options) {
@@ -49,20 +47,23 @@ define([
 
         onBeforeSwap: function(view, region, options) {
             // the `view` has not been swapped yet
-            console.log('the view has not been swapped yet');
+            console.log('onbefore swap : the view has not been swapped yet');
             NProgress.start();
         },
 
         onSwap: function(view, region, options){
-        // the `view` has been swapped
+            console.log('onSwap');
+            // the `view` has been swapped
         },
 
         onBeforeSwapOut: function(view, region, options) {
-        // the `view` has not been swapped out yet
+            console.log('onBeforeSwapOut');
+            // the `view` has not been swapped out yet
         },
 
         onSwapOut: function(view, region, options){
-        // the `view` has been swapped out
+            // the `view` has been swapped out
+            console.log('onSwapOut');
         }
 
     });

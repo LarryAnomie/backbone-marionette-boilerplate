@@ -22,14 +22,13 @@ define([
                 this.$el.addClass('page page--' + this.model.attributes.name)
             }
 
-            console.log(this.model.attributes);
+            this.getTitle = function() {
+                return this.model.attributes.title;
+            }
+
+           this.transitionType = 'js';
 
         },
-
-        getTitle : function() {
-            return this.model.attributes.title;
-        },
-
 
         /**
          *

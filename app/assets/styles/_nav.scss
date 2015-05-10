@@ -1,0 +1,24 @@
+.app-nav {
+
+}
+
+.app-nav__menu {
+    margin: 0;
+    padding: 0;
+    display: flex; /* or inline-flex */
+}
+
+.app-nav__menu-item {
+    flex-grow : 1;
+    list-style: none;
+    text-align: center;
+
+    a {
+        display: block;
+        padding: 20px;
+    }
+}
+
+.app-nav__menu-item--active {
+    background: #ccc;
+}

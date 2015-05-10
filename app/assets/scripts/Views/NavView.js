@@ -6,16 +6,17 @@ define([
 ], function (Marionette, NavItemView) {
     'use strict';
 
+    console.log(NavItemView)
+
     var NavView = Marionette.CollectionView.extend({
 
-        itemView: NavItemView,
+        childView: NavItemView,
 
         tagName: 'ul',
 
-        className: 'nav nav-pills pull-right',
+        className: 'app-nav__menu',
 
         initialize : function(options) {
-            console.log(options);
             this.vent = options.vent;
         }
     });

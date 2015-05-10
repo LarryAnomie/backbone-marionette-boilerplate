@@ -27,6 +27,8 @@ define([
                 return this.model.attributes.title;
             }
 
+            this.transitionType = 'css';
+
         },
 
         /**

@@ -12,12 +12,10 @@ define([
     var AppController = Backbone.Marionette.Controller.extend({
 
         initialize: function(options) {
-            // App.headerRegion.show(new NavView());
+
         },
 
         showPage: function(pageName) {
-
-            console.log(arguments);
 
             var pageModel;
 
@@ -25,11 +23,16 @@ define([
                 pageName = 'home';
             }
 
+            // clear currently active model
+            console.log(app.pages.findWhere({active:true}));
+            app.pages.findWhere({active: true}).set('active', false);
+
             pageModel = app.pages.findWhere({
                 name: pageName
             });
 
-            app.vent.trigger('menu:activate', pageModel);
+            // set new model as active
+            pageModel.set('active', true);
 
             if (pageName === 'home') {
 
