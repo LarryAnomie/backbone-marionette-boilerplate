@@ -28,6 +28,8 @@ define([
 
             this.transitionType = 'js';
 
+            console.log(this.$el);
+
         },
 
         onShow: function() {
@@ -50,7 +52,7 @@ define([
             visible: 'page--is-visible'
         },
 
-        duration: 500,
+        duration: 5000,
 
         getTitle: function() {
             return this.model.attributes.title;
@@ -144,6 +146,14 @@ define([
                     }, {
                         duration: view.duration,
                         easing: 'linear',
+                                            progress : function(elements, percentComplete, timeRemaining, timeStart) {
+
+console.log(percentComplete)
+
+                          if (percentComplete > 0.5 ) {
+                            view.$el.velocity('stop', true);
+                          }
+                        },
                         complete: function() {
                             view.trigger('animateIn');
 
@@ -172,7 +182,7 @@ define([
          */
         animateOut: function(callback, transition) {
 
-            console.log('animateOut called');
+            console.log('animateOut called', this.$el);
 
             var view = this;
 
@@ -185,7 +195,17 @@ define([
                     delay : 20,
                     duration: view.duration,
                     easing: 'linear',
+                                            progress : function(elements, percentComplete, timeRemaining, timeStart) {
+
+console.log(percentComplete)
+
+                          if (percentComplete > 0.5 ) {
+                            view.$el.velocity('stop', true);
+                          }
+                        },
                     complete: function() {
+
+                        console.log('foo');
 
                         view.$el.removeClass(view.classes.animatingOut);
                         view.trigger('animateOut');
@@ -203,7 +223,8 @@ define([
          * Useful hook for any init work we need that would normall run onShow
          */
         attachView : function() {
-            //console.log('view was already in DOM');
+            console.log('view was already in DOM');
+            this.$el;
         },
 
         render: function () {

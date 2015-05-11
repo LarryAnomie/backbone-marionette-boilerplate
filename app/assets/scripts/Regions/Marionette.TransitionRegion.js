@@ -82,12 +82,14 @@ define([
 
             console.log(this._oldView);
             var animateOut = currentView && _.isFunction(this.currentView.animateOut);
+            console.log(animateOut)
 
             var concurrent = this.getOption('concurrentTransition');
 
             // If the view has an animate out function, then wait for it to conclude and then continue.
             // Otherwise, simply continue.
             if (animateOut && !concurrent) {
+
                 this.listenToOnce(currentView, 'animateOut', _.bind(this._onTransitionOut, this));
                 currentView.animateOut();
                 // Return this for backwards compat
@@ -110,7 +112,7 @@ define([
         _onTransitionOut: function(oldView) {
 
 
-            console.log('_onTransitionOut');
+            console.log('_onTransitionOut', oldView);
 
             // does this do anything?
             this.triggerMethod('animateOut', this.currentView);
@@ -141,6 +143,10 @@ define([
 
             // only destroy the view if we don't want to preventDestroy and the view is different
             var _shouldDestroyView = !preventDestroy && isDifferentView && !this.getOption('concurrentTransition');
+/*                console.log(!preventDestroy);
+                 console.log(isDifferentView);
+                  console.log(!this.getOption('concurrentTransition'));
+                  console.log(_shouldDestroyView);*/
 
             // Destroy the old view
             if (_shouldDestroyView) {

@@ -42,7 +42,8 @@ define([
 
                  app.mainRegion.attachView(new PageView({
                     model: pageModel,
-                    page: true
+                    page: true,
+                    el : '#page-' + pageName
                 }));
 
             } else {
