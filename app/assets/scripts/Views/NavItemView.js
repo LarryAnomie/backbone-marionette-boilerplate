@@ -42,14 +42,14 @@ define([
         modelEvents: {
             'change:active': function() {
 
-                console.log(this.model.get('name'), ' navItemViews model active attribute changed');
+               // console.log(this.model.get('name'), ' navItemViews model active attribute changed');
                 this.render();
             }
         },
 
         onRender: function() {
-            console.log(this.model.get('name'), ' navItemView onRender');
-            console.log(this.model.get('active'), this.$el);
+/*            console.log(this.model.get('name'), ' navItemView onRender');
+            console.log(this.model.get('active'), this.$el);*/
 
             if (this.model.get('active')) {
                 this.$el.addClass(this.activeClass);

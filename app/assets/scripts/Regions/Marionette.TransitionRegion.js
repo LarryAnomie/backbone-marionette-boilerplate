@@ -58,12 +58,12 @@ define([
 
         show: function(view, options) {
 
-            console.log('show');
+            console.log('about to show:', view);
+            console.log('about to kill:', this.currentView);
 
             // If animating out, set the animateInQueue.
             // This new view will be what is transitioned in
             if (this._animatingOut) {
-
                 this.setInQueue(view, options);
                 return this;
             } else if (this._animatingIn) {
@@ -79,6 +79,8 @@ define([
 
             var currentView = this.currentView;
             this._oldView = this.currentView;
+
+            console.log(this._oldView);
             var animateOut = currentView && _.isFunction(this.currentView.animateOut);
 
             var concurrent = this.getOption('concurrentTransition');
@@ -94,7 +96,6 @@ define([
 
             // Otherwise, execute both transitions at the same time
             else if (animateOut && concurrent) {
-                console.log('transition at the same time');
                 // If the old view needs to stay e.g. a view transitions in over the top
                 // don't call this
                 currentView.animateOut();
@@ -108,9 +109,6 @@ define([
         // This is most of the original show function.
         _onTransitionOut: function(oldView) {
 
-/*        if (oldView) {
-            oldView.animateOut();
-        }*/
 
             console.log('_onTransitionOut');
 
@@ -135,7 +133,8 @@ define([
             // we are only changing the view if there is a view to change to begin with
             var isChangingView = !!this.currentView;
 
-            // console.log(view.animateIn);
+            console.log('is changing view', isChangingView);
+            console.log(this.currentView);
 
             // The region is only animating if there's an animateIn method on the new view
             var animatingIn = _.isFunction(view.animateIn);
@@ -145,6 +144,7 @@ define([
 
             // Destroy the old view
             if (_shouldDestroyView) {
+                console.log('should destroy');
                 this.empty({
                     animate: false
                 });
@@ -191,6 +191,7 @@ define([
 
             // show triggerMethods
             this.triggerMethod('show', view);
+
             if (_.isFunction(view.triggerMethod)) {
                 view.triggerMethod('show');
             } else {
@@ -213,6 +214,24 @@ define([
         // Append the new child
         appendHtml: function(view) {
             this.el.appendChild(view.el);
+        },
+
+        /**
+         * this overwrites Marionette's standard attachView
+         * to fire a method on the current view
+         * @param  {Object} view - view instance to show
+         * @return {[type]}      [description]
+         */
+        attachView: function(view) {
+            this.currentView = view;
+
+            if (_.isFunction(view.attachView)) {
+                view.attachView();
+            }
+
+console.log(this.currentView);
+
+            return this;
         },
 
         // After it's shown, then we triggerMethod 'animateIn'
@@ -258,6 +277,9 @@ define([
         },
 
         _destroyView: function() {
+
+console.log('_destroyView', view);
+
             var view = this.currentView;
             if (!view || view.isDestroyed) {
                 return;

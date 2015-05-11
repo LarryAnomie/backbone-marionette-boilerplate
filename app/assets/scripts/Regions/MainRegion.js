@@ -10,8 +10,6 @@ define([
 
     'use strict';
 
-    console.log(common);
-
     var MainRegion = Marionette.TransitionRegion.extend({
 
         initialize: function(options) {
@@ -24,19 +22,17 @@ define([
 
             var newTitle = view.getTitle();
 
-            console.log(view);
-
             document.title = common.baseTitle + ' | ' + newTitle;
 
         },
 
         onBeforeShow: function(view, region, options) {
-            console.log('the view has not been shown yet');
+            console.log('region before show');
             //console.log(view, region, options);
         },
 
         onShow: function(view, region, options) {
-            console.log('the view has been shown');
+            console.log('region on show');
             //console.log(view, region, options);
 
             NProgress.done();

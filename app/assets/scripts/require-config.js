@@ -15,7 +15,8 @@ require.config({
         velocity: '../bower_components/velocity/velocity',
         velocityUi: '../bower_components/velocity/velocity.ui',
         swiper: '../bower_components/swiper/dist/js/swiper',
-        transitionRegion : 'Regions/Marionette.TransitionRegion'
+        transitionRegion : 'Regions/Marionette.TransitionRegion',
+        SVGInjector : '../bower_components/svg-injector/svg-injector'
     },
     shim: {
         'modernizr': {

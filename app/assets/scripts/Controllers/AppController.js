@@ -9,6 +9,8 @@ define([
 ], function(app, Backbone, Marionette, HomeView, PageView) {
     'use strict';
 
+    var isFirstView = true;
+
     var AppController = Backbone.Marionette.Controller.extend({
 
         initialize: function(options) {
@@ -21,10 +23,11 @@ define([
 
             if (pageName === null) {
                 pageName = 'home';
+            } else {
+                pageName = pageName.replace('.html', '');
             }
 
             // clear currently active model
-            console.log(app.pages.findWhere({active:true}));
             app.pages.findWhere({active: true}).set('active', false);
 
             pageModel = app.pages.findWhere({
@@ -34,22 +37,22 @@ define([
             // set new model as active
             pageModel.set('active', true);
 
-            if (pageName === 'home') {
+            if (isFirstView) {
+                isFirstView = false;
 
-                app.mainRegion.show(new HomeView({
+                 app.mainRegion.attachView(new PageView({
                     model: pageModel,
-                    page: true,
-                    id : 'page-' + pageModel.attributes.name
+                    page: true
                 }));
 
             } else {
-
                 app.mainRegion.show(new PageView({
                     model: pageModel,
                     page: true,
                     id : 'page-' + pageModel.attributes.name
                 }));
             }
+
         }
     });
 

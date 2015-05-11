@@ -24,7 +24,7 @@ define([
             visible: 'page--is-visible'
         },
 
-        duration: 300,
+        duration: 500,
 
         getTitle: function() {
             return this.model.attributes.title;
@@ -113,32 +113,31 @@ define([
 
             var view = this,
                 delay,
-
                 animateIn = function() {
-                    view.$el
-                        .addClass(view.classes.animatingIn)
-                        .velocity({
-                            translateZ: 0, // Force HA by animating a 3D property
-                            translateX: '-100%',
-                        }, {
-                            duration: view.duration,
-                            easing: 'linear',
-                            complete: function() {
-                                view.trigger('animateIn');
 
-                                view.$el.removeClass(view.classes.animatingIn);
+                    view.$el.velocity({
+                        translateZ: 0, // Force HA by animating a 3D property
+                        translateX: '-100%',
+                    }, {
+                        duration: view.duration,
+                        easing: 'linear',
+                        complete: function() {
+                            view.trigger('animateIn');
 
-                                if (_.isFunction(callback)) {
-                                    callback();
-                                }
+                            view.$el.removeClass(view.classes.animatingIn);
+
+                            if (_.isFunction(callback)) {
+                                callback();
                             }
-                        });
+                        }
+                    });
 
                 };
 
-            // call animateIn after a short delay to allow for animating DOM element
-            _.delay(animateIn, 10);
+            view.$el.addClass(view.classes.animatingIn);
 
+            // call animateIn after a short delay to allow for animating DOM element
+            _.delay(animateIn, 20);
 
         },
 
@@ -160,6 +159,7 @@ define([
                     translateZ: 0, // Force HA by animating a 3D property
                     translateX: '200%',
                 }, {
+                    delay : 20,
                     duration: view.duration,
                     easing: 'linear',
                     complete: function() {

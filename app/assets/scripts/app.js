@@ -9,8 +9,10 @@ define([
     'Collections/PageCollection',
     'Views/NavView',
     'data',
-    'config/common'
-], function($, Backbone, Marionette, _, MainRegion, PageCollection, NavView, data, common) {
+    'config/common',
+    'SVGInjector',
+    'Views/FooterView'
+], function($, Backbone, Marionette, _, MainRegion, PageCollection, NavView, data, common, SVGInjector, FooterView) {
 
     'use strict';
 
@@ -57,18 +59,26 @@ define([
         vent : app.vent
     });
 
+
+    var footerView = new FooterView({
+        el : '.js-footer-view'
+    });
+
+
     // Organize application into regions corresponding to DOM elements
     app.addRegions({
         headerRegion: '.js-nav',
         mainRegion: new MainRegion({
             el: '.js-main'
         }),
+//mainRegion : '.js-main',
         footerRegion: 'js-footer'
     });
 
     app.addInitializer(function() {
 
         app.headerRegion.show(navView);
+        app.footerRegion.attachView(navView);
 
         Backbone.history.start({
             pushState: true

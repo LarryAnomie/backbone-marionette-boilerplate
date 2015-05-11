@@ -5,14 +5,14 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title>Backbone Marionette Transitions</title>
+        <title>App | Contact Page</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="shortcut icon" href="favicon.ico">
 
         <!-- Add to homescreen for Chrome on Android -->
         <meta name="mobile-web-app-capable" content="yes">
-        <link rel="icon" sizes="196x196" href="assets/images/touch/chrome-touch-icon-196x196.png">
+        <link rel="icon" sizes="196x196" href="/assets/images/touch/chrome-touch-icon-196x196.png">
 
         <!-- Add to homescreen for Safari on iOS -->
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,12 +31,12 @@
 
         <!-- build:css(.tmp) assets/styles/main.css -->
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="assets/styles/main.css">
+            <link rel="stylesheet" href="/assets/styles/main.css">
         <!--<![endif]-->
         <!-- endbuild -->
 
         <!-- build:js assets/scripts/vendor/modernizr.js -->
-        <script src="assets/bower_components/modernizr/modernizr.js"></script>
+        <script src="/assets/bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
 
     </head>
@@ -52,12 +52,19 @@
                     </ul> -->
                 </nav>
             </header>
-            <main id="main" class="js-main main"></main>
+            <main id="main" class="js-main main">
+                <div id="page-about" class="page page--about" style="transform: translateX(-100%);">
+                    <article class="primary">
+                        <h1>About</h1>
+                        <p>Donec blandit purus ac felis tempus venenatis. Vestibulum laoreet augue vitae dui placerat, id mollis lectus aliquet. Curabitur rutrum tincidunt posuere. Aenean ex justo, viverra condimentum molestie ut, vulputate in nibh. Donec varius metus sit amet tincidunt mollis. Suspendisse quis pretium arcu. Nam faucibus, orci placerat vestibulum feugiat, leo orci ullamcorper nisi, vitae elementum lorem ante vitae tortor. Morbi sit amet felis dolor. Nullam eu est eget diam sodales pellentesque a eu leo. Aliquam eleifend luctus enim vel sodales. Nulla congue eu enim nec sodales. Quisque pellentesque purus eget maximus viverra. Sed iaculis gravida mauris vel tristique.</p>
+                    </article>
+                </div>
+            </main>
             <footer id="footer" class="js-footer footer">
                 <div class="js-footer-view footer__inner">
                     <p>lorem ipsum footer content</p>
-                    <img class="icon-svg" src="assets/images/svg/social-medium-logo.svg">
-                    <img class="icon-svg" src="assets/images/svg/social-twitter-logo.svg">
+                    <img class="icon-svg" src="/assets/images/svg/social-medium-logo.svg">
+                    <img class="icon-svg" src="/assets/images/svg/social-twitter-logo.svg">
                 </div>
             </footer>
         </div>
@@ -72,7 +79,7 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
-        <script data-main="assets/scripts/main.js" src="assets/scripts/require.js"></script>
+        <script data-main="/assets/scripts/main.js" src="/assets/scripts/require.js"></script>
 </body>
 </html>
 
