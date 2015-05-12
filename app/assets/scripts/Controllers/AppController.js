@@ -40,14 +40,14 @@ define([
             if (isFirstView) {
                 isFirstView = false;
                 // view already exisits in the DOM, rendered by server
-                 app.mainRegion.attachView(new PageView({
+                 app.rootView.mainRegion.attachView(new PageView({
                     model: pageModel,
                     page: true,
                     el : '#page-' + pageName
                 }));
 
             } else {
-                app.mainRegion.show(new PageView({
+                app.rootView.mainRegion.show(new PageView({
                     model: pageModel,
                     page: true,
                     id : 'page-' + pageModel.attributes.name

@@ -35,8 +35,15 @@ define([
         el: '.js-footer-view'
     });
 
+    var RootView = Marionette.LayoutView.extend({
+        el: 'body'
+    });
+
+    app.rootView = new RootView();
+
     // Organize application into regions corresponding to DOM elements
-    app.addRegions({
+
+    app.rootView.addRegions({
         headerRegion: '.js-nav',
         mainRegion: new MainRegion({
             el: '.js-main'
@@ -46,8 +53,8 @@ define([
 
     app.addInitializer(function() {
 
-        app.headerRegion.show(navView);
-        app.footerRegion.attachView(footerView); // footer already exisits in the DOM
+        app.rootView.headerRegion.show(navView);
+        app.rootView.footerRegion.attachView(footerView); // footer already exisits in the DOM
 
         Backbone.history.start({
             pushState: true
