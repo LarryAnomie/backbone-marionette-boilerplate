@@ -76,10 +76,14 @@ define([
             };
 
             this.$world = this.$('#world');
-            this.$galaxy = this.$('#galaxy');
+            this.$galaxy = $('#galaxy');
 
-            this.$world.parallaxify(parallaxifyOptions);
-            this.$galaxy.parallaxify(parallaxifyOptions);
+            console.log(this.$galaxy.parallaxify() );
+
+            $.parallaxify(parallaxifyOptions);
+
+/*            this.$world.parallaxify(parallaxifyOptions);
+            this.$galaxy.parallaxify(parallaxifyOptions);*/
 
         },
 
