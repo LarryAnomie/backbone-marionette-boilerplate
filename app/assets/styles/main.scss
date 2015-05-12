@@ -1,11 +1,12 @@
-$icon-font-path: "/assets/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$icon-font-path: "/assets/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
 //only using bootstraps normalize scss file, add whatever is neccesary for your project
 // for the whole thang, replace with :
 // @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/normalize.scss";
 
 // bower:scss
-@import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/normalize.scss";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+
 // endbower
 
 // order is important here

@@ -16,7 +16,8 @@ require.config({
         velocityUi: '../bower_components/velocity/velocity.ui',
         swiper: '../bower_components/swiper/dist/js/swiper',
         transitionRegion : 'Regions/Marionette.TransitionRegion',
-        SVGInjector : '../bower_components/svg-injector/svg-injector'
+        SVGInjector : '../bower_components/svg-injector/svg-injector',
+        parallaxify : '../bower_components/jquery.parallaxify/jquery.parallaxify'
     },
     shim: {
         'modernizr': {
@@ -28,6 +29,9 @@ require.config({
         },
         'marionette' : {
             deps : ['lodash', 'backbone', 'jquery']
+        },
+        'parallaxify' : {
+            deps : ['jquery']
         }
     },
     map: {

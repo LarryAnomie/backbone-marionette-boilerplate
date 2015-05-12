@@ -17,6 +17,43 @@ define([
 
         },
 
+        home : function() {
+            var pageModel, pageName;
+
+            pageName = 'home';
+
+            // clear currently active model
+            app.pages.findWhere({active: true}).set('active', false);
+
+            pageModel = app.pages.findWhere({
+                name: pageName
+            });
+
+            // set new model as active
+            pageModel.set('active', true);
+
+            if (isFirstView) {
+                isFirstView = false;
+                // view already exisits in the DOM, rendered by server
+                 app.rootView.mainRegion.attachView(new HomeView({
+                    model: pageModel,
+                    page: true,
+                    el : '#page-' + pageName
+                }));
+
+            } else {
+                app.rootView.mainRegion.show(new HomeView({
+                    model: pageModel,
+                    page: true,
+                    id : 'page-' + pageModel.attributes.name
+                }));
+            }
+        },
+
+        /**
+         * generic page controller
+         * @param  {String} pageName
+         */
         showPage: function(pageName) {
 
             var pageModel;

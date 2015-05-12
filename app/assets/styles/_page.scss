@@ -11,13 +11,13 @@ left: 0; */
     overflow: auto;
     text-align: center;
     background: #0ac2d2;
-    padding: 4em 2em;
+    padding: 4em 0;
     color: #fff;
     //transform: translate3d(0, 100%, 0);
     opacity: 1;
     display: block;
     left: 100%;
-    margin-bottom: 172px;
+    margin-bottom: 128px; // needs to be same height as footer
 
     &.page--is-visible {
         // transform: translate3d(0, 0, 0);

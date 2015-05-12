@@ -1,0 +1,23 @@
+.parallaxify {
+    height: 600px;
+    margin: 0 -80px;
+    margin-bottom: 2em;
+}
+
+.galaxy {
+    position: relative;
+    background: transparent url("../images/parallax-bg.jpg") no-repeat 0 0;
+    height: 600px;
+    width: 100%;
+    overflow: visible;
+}
+
+.world {
+    background: transparent url("../images/parallax-fg.png") no-repeat center center;
+    background-size: contain;
+    height: 90%;
+    width: 90%;
+    position: absolute;
+    top: 2%;
+    left: 2%;
+}

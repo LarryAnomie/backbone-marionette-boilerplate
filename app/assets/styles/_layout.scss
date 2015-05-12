@@ -12,13 +12,8 @@
 
 .primary {
     padding-top: 2em;
-    width: 70%;
-    margin: 0 auto;
 
     @include respond-min(45em) {
-        /*         float: left;
-                width: 70%; */
-
         @include old-ie {
             // These hacks won't appear in the normal stylesheet
             display: inline;
@@ -36,16 +31,7 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
-    //overflow: hidden;
 }
-
-/* .app {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    color: #444;
-    background: #ccc;
-} */
 
 .header {
     width: 100%;

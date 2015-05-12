@@ -7,9 +7,8 @@ define(['backbone', 'marionette'], function(Backbone, Marionette) {
     var AppRouter = Backbone.Marionette.AppRouter.extend({
         //'index' must be a method in AppRouter's controller
         appRoutes: {
-            '' : 'showPage',
-            'pages/:pageName' : 'showPage',
-            'contact' : 'showPage'
+            '' : 'home',
+            'pages/:pageName' : 'showPage'
         }
     });
 
