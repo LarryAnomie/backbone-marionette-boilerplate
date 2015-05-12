@@ -9,7 +9,7 @@ define([
 ], function(app, Backbone, Marionette, HomeView, PageView) {
     'use strict';
 
-    var isFirstView = true;
+    var isFirstView = true; // flag to keep track of whether this is a server route or client side
 
     var AppController = Backbone.Marionette.Controller.extend({
 
@@ -39,7 +39,7 @@ define([
 
             if (isFirstView) {
                 isFirstView = false;
-
+                // view already exisits in the DOM, rendered by server
                  app.mainRegion.attachView(new PageView({
                     model: pageModel,
                     page: true,

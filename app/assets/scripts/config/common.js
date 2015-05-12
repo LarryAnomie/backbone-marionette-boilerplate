@@ -1,31 +1,34 @@
 /* global define, Modernizr */
 
-define(function() {
+define([
+    'jquery',
+],function($) {
 
     'use strict';
 
-    function transitionEndEventName() {
-        var i,
-            el = document.createElement('div'),
-            transitions = {
-                'transition': 'transitionend',
-                'OTransition': 'otransitionend', // oTransitionEnd in very old Opera
-                'MozTransition': 'transitionend',
-                'WebkitTransition': 'webkitTransitionEnd'
-            };
+    var transEndEventNames = {
+        'WebkitTransition': 'webkitTransitionEnd', // Saf 6, Android Browser
+        'MozTransition': 'transitionend', // only for FF < 15
+        'transition': 'transitionend' // IE10, Opera, Chrome, FF 15+, Saf 7+
+    };
 
-        for (i in transitions) {
-            if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
-                return transitions[i];
-            }
-        }
+    var isMobile = function() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        return ((/iPhone|iPod|iPad|Android|BlackBerry|Opera Mini|IEMobile/).test(userAgent));
+    };
 
-        //TODO: throw 'TransitionEnd event is not supported in this browser';
-    }
+    // cross browser transition name
+    var transEndEventName = transEndEventNames[window.Modernizr.prefixed('transition')];
 
     return {
         baseTitle: 'Backbone Marionette Transitions',
         root: '',
-        transitionend : transitionEndEventName()
+        transitionend : transEndEventName,
+        isMobile : isMobile(),
+        $window : $(window),
+        $document : $(document),
+        dom : {
+            $body : $('body')
+        }
     };
 });
