@@ -6,9 +6,10 @@ define([
     'backbone',
     'marionette',
     'velocity',
+    'TweenMax',
     '../config/common',
     '../../bower_components/requirejs-text/text!../../templates/page.html'
-], function($, _, Backbone, Marionette, Velocity, common, tmpl) {
+], function($, _, Backbone, Marionette, Velocity, TweenMax, common, tmpl) {
 
     'use strict';
 
@@ -25,7 +26,7 @@ define([
             visible: 'page--is-visible'
         },
 
-        duration: 300, // default animation duration
+        duration: 1, // default animation duration
 
         initialize: function(options) {
 
@@ -137,6 +138,14 @@ define([
 
         },
 
+        onAnimateIn : function(view) {
+            console.log('onAnimateIn', view);
+        },
+
+        onBeforeEmpty : function() {
+            console.log('onBeforeEmpty');
+        },
+
         /**
          * js animate in
          * @param  {Function} callback   [description]
@@ -149,7 +158,20 @@ define([
                 delay,
                 animateIn = function() {
 
-                    view.$el.velocity({
+                    TweenMax.to(view.$el, view.duration, {
+                        xPercent: '-100%',
+                        ease: 'Power4.easeIn',
+                        onComplete: function() {
+                            view.trigger('animateIn');
+
+                            view.$el.removeClass(view.classes.animatingIn);
+                            view.$el.addClass(view.classes.visible);
+
+                        }
+                    });
+
+
+                    /*view.$el.velocity({
                         translateZ: 0, // Force HA by animating a 3D property
                         translateX: '-100%',
                     }, {
@@ -173,7 +195,7 @@ define([
                                 callback();
                             }
                         }
-                    });
+                    });*/
 
                 };
 
@@ -196,7 +218,25 @@ define([
 
             var view = this;
 
-            view.$el
+            view.$el.addClass(view.classes.animatingOut);
+
+            TweenMax.fromTo(view.$el, 10, {
+                    xPercent: '-100%',
+                    x : 0
+                }, {
+                delay : 0.6,
+                xPercent: '-200%',
+                ease:'Power4.easeOut',
+                onComplete: function() {
+                    console.log('aniamted out');
+                    view.trigger('animateOut');
+
+                    view.$el.removeClass(view.classes.animatingIn);
+
+                }
+            });
+
+            /*view.$el
                 .addClass(view.classes.animatingOut)
                 .velocity({
                     translateZ: 0, // Force HA by animating a 3D property
@@ -222,7 +262,7 @@ define([
                             callback();
                         }
                     }
-                });
+                });*/
 
         },
 

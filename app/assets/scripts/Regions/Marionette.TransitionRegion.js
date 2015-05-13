@@ -235,16 +235,23 @@ define([
                 view.attachView();
             }
 
-console.log(this.currentView);
+            console.log(this.currentView);
 
             return this;
         },
 
-        // After it's shown, then we triggerMethod 'animateIn'
-        _onTransitionIn: function(options) {
-            var preventDestroy = options.preventDestroy;
 
-            var oldView = this._oldView;
+        /**
+         * _onTransitionIn removes old view when new view is done animating
+         * and triggerMethod 'animateIn'
+         * @param  {Object} options
+         * @return {Object} this
+         */
+        _onTransitionIn: function(options) {
+
+            var preventDestroy = options.preventDestroy,
+                oldView = this._oldView;
+
             // // Destroy the old view
             if (!preventDestroy && oldView && !oldView.isDestroyed) {
                 if (oldView.destroy) {

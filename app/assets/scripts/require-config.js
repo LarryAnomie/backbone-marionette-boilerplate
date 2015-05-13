@@ -17,7 +17,9 @@ require.config({
         swiper: '../bower_components/swiper/dist/js/swiper',
         transitionRegion : 'Regions/Marionette.TransitionRegion',
         SVGInjector : '../bower_components/svg-injector/svg-injector',
-        parallaxify : '../bower_components/jquery.parallaxify/jquery.parallaxify'
+        parallaxify : '../bower_components/jquery.parallaxify/jquery.parallaxify',
+        ScrollMagic : '../bower_components/ScrollMagic/scrollmagic/uncompressed/ScrollMagic',
+        TweenMax: '../bower_components/greensock/src/uncompressed/TweenMax'
     },
     shim: {
         'modernizr': {
@@ -32,6 +34,9 @@ require.config({
         },
         'parallaxify' : {
             deps : ['jquery']
+        },
+        'TweenMax': {
+            exports: 'TweenMax'
         }
     },
     map: {
