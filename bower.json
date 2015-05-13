@@ -14,6 +14,8 @@
     "backbone-validation": "~0.9.1",
     "swiper": "~3.0.4",
     "svg-injector": "~1.1.2",
-    "jquery.parallaxify": "*"
+    "jquery.parallaxify": "*",
+    "greensock": "~1.16.1",
+    "ScrollMagic": "~2.0.5"
   }
 }

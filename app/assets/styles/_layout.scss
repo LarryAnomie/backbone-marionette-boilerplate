@@ -11,7 +11,10 @@
 }
 
 .primary {
-    padding-top: 2em;
+
+  padding-top: 2em;
+  position: relative;
+  height: 100%;
 
     @include respond-min(45em) {
         @include old-ie {

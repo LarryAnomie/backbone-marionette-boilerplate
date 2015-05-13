@@ -6,11 +6,15 @@ define([
     'backbone',
     'marionette',
     'velocity',
+    'TweenMax',
+    'ScrollMagic',
     'Views/ExtendView',
     '../config/common',
     '../../bower_components/requirejs-text/text!../../templates/page.html',
-    'parallaxify'
-], function($, _, Backbone, Marionette, Velocity, ExtendView, common, tmpl) {
+    'parallaxify',
+    'debug',
+    'animationGsap'
+], function($, _, Backbone, Marionette, Velocity, TweenMax, ScrollMagic, ExtendView, common, tmpl) {
 
     'use strict';
 
@@ -40,7 +44,7 @@ define([
          * @param {Strin} easing - easing to use
          * @param {Function} cb - callback fn
          */
-        _scrollTo : function($el, duration, easing, cb) {
+        _scrollTo: function($el, duration, easing, cb) {
 
             var animDuration = duration ? duration : 250,
                 animEasing = easing ? easing : 'ease-out',
@@ -78,12 +82,64 @@ define([
             this.$world = this.$('#world');
             this.$galaxy = $('#galaxy');
 
-            console.log(this.$galaxy.parallaxify() );
+            console.log(this.$galaxy.parallaxify());
 
             $.parallaxify(parallaxifyOptions);
 
-/*            this.$world.parallaxify(parallaxifyOptions);
-            this.$galaxy.parallaxify(parallaxifyOptions);*/
+            this.$world.parallaxify(parallaxifyOptions);
+            this.$galaxy.parallaxify(parallaxifyOptions);
+
+            // init
+            // init controller
+            this.controller = new ScrollMagic.Controller({
+                globalSceneOptions: {
+                    triggerHook: "onEnter",
+                    duration: "200%"
+                }
+            });
+
+            // build scenes
+            new ScrollMagic.Scene({
+                triggerElement: "#parallax1"
+            })
+                .setTween("#parallax1 > div", {
+                    y: "80%",
+                    ease: Linear.easeNone
+                })
+                .addIndicators()
+                .addTo(this.controller);
+
+            new ScrollMagic.Scene({
+                triggerElement: "#parallax2"
+            })
+                .setTween("#parallax2 > div", {
+                    y: "80%",
+                    ease: Linear.easeNone
+                })
+                .addIndicators()
+                .addTo(this.controller);
+
+            new ScrollMagic.Scene({
+                triggerElement: "#parallax3"
+            })
+                .setTween("#parallax3 > div", {
+                    y: "80%",
+                    ease: Linear.easeNone
+                })
+                .addIndicators()
+                .addTo(this.controller);
+
+            var slides = document.querySelectorAll("section.panel");
+
+            // create scene for every slide
+            for (var i = 0; i < slides.length; i++) {
+                new ScrollMagic.Scene({
+                    triggerElement: slides[i]
+                })
+                    .setPin(slides[i])
+                    .addIndicators() // add indicators (requires plugin)
+                .addTo(this.controller);
+            }
 
         },
 
@@ -187,7 +243,7 @@ define([
                                 //view.$el.velocity('stop', true);
                             }
                         },
-                        begin : function() {
+                        begin: function() {
                             view._scrollTo(common.dom.$body);
                         },
                         complete: function() {
@@ -226,7 +282,7 @@ define([
                 .addClass(view.classes.animatingOut)
                 .velocity({
                     translateZ: 0, // Force HA by animating a 3D property
-                    translateX: [ '-200%', '-100%' ] // force feed starting position to be -100
+                    translateX: ['-200%', '-100%'] // force feed starting position to be -100
                 }, {
                     delay: 20,
                     duration: view.duration,
@@ -236,7 +292,7 @@ define([
                         //console.log(percentComplete);
 
                         if (percentComplete > 0.5) {
-                           // view.$el.velocity('stop', true);
+                            // view.$el.velocity('stop', true);
                         }
                     },
                     complete: function() {
@@ -257,7 +313,7 @@ define([
          * kills this view, unbind any events here
          *
          */
-        remove : function() {
+        remove: function() {
 
             console.log('home view remove');
 
