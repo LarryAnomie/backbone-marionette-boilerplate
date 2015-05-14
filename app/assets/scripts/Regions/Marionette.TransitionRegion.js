@@ -18,6 +18,18 @@ define([
         // should transitions on leaving and entering view run at the same time
         concurrentTransition: true,
 
+        // keep track of whether animating is in progress
+        isAnimatingOut : false,
+        isAnimatingIn : false,
+
+        _queuedView : null,
+        _queueOptions : null,
+
+        _queued : null,
+
+        _inQueueView : null,        // view queued up to be animated in
+        _inQueueOptions : null,     // options associated with incoming view
+
         // This is queue manager code that doesn't belong in regions.
         // maybe when this transition region is in Marionette,
         // you will be some sort of mixin for a region.
@@ -26,6 +38,11 @@ define([
             this._queueOptions = options;
         },
 
+        /**
+         * sets incoming view
+         * @param {Object} view    view instance
+         * @param {Object} options view options
+         */
         setInQueue: function(view, options) {
             this._inQueueView = view;
             this._inQueueOptions = options;
@@ -36,117 +53,159 @@ define([
             delete this._inQueueOptions;
         },
 
+        /**
+         * checks que for an incoming view, if none set, listences for animateIn event and calls showQuue
+         * @return {Boolen|Undefined} [description]
+         */
         checkQueue: function() {
             if (this._queued) {
                 return false;
             }
 
             this._queued = true;
+            // listen for incoming view's animated in end
             this.once('animateIn', _.bind(this.showQueue, this));
         },
 
+        /**
+         * calls region's show methood passing queued view
+         * @return {Undefined}
+         */
         showQueue: function() {
             this.show(this._queuedView, this._queuedOptions);
             this._queued = false;
             this.clearQueue();
         },
 
+        /**
+         * clears queued view and view options
+         * @return {Undefined}
+         */
         clearQueue: function() {
             delete this._queuedView;
             delete this._queuedOptions;
         },
 
+        /**
+         * overwrite region show fn
+         * @param  {Object} view   in coming view
+         * @param  {Options} options options object
+         * @return {[type]}         [description]
+         */
         show: function(view, options) {
 
-            console.log('about to show:', view);
-            console.log('about to kill:', this.currentView);
+            var currentView,
+                animateOut,
+                concurrent;
+
+/*            console.log('region --> about to show:', view);
+            console.log('region --> about to kill:', this.currentView);*/
 
             // If animating out, set the animateInQueue.
             // This new view will be what is transitioned in
-            if (this._animatingOut) {
+            if (this.isAnimatingOut) {
                 this.setInQueue(view, options);
                 return this;
-            } else if (this._animatingIn) {
+            } else if (this.isAnimatingIn) {
                 this.setQueue(view, options);
                 this.checkQueue();
                 return this;
             }
 
+            console.log('region --> show, beyond initial check, at this point');
+
             this.setInQueue(view, options);
-            this._animatingOut = true;
+            this.isAnimatingOut = true;
 
             this._ensureElement();
 
-            var currentView = this.currentView;
+            // store current view in scope
+            currentView = this.currentView;
+
+            // set old view to current view
             this._oldView = this.currentView;
 
-            console.log(this._oldView);
-            var animateOut = currentView && _.isFunction(this.currentView.animateOut);
-            console.log(animateOut)
+            animateOut = currentView && _.isFunction(this.currentView.animateOut);
 
-            var concurrent = this.getOption('concurrentTransition');
+            concurrent = this.getOption('concurrentTransition');
 
             // If the view has an animate out function, then wait for it to conclude and then continue.
-            // Otherwise, simply continue.
+
             if (animateOut && !concurrent) {
 
                 this.listenToOnce(currentView, 'animateOut', _.bind(this._onTransitionOut, this));
                 currentView.animateOut();
+
                 // Return this for backwards compat
                 return this;
-            }
 
+            } else if (animateOut && concurrent) {
             // Otherwise, execute both transitions at the same time
-            else if (animateOut && concurrent) {
+
                 // If the old view needs to stay e.g. a view transitions in over the top
                 // don't call this
                 currentView.animateOut();
-                //this.triggerMethod('animateOut', this.currentView);
+
                 return this._onTransitionOut(currentView);
+
             } else {
+            // Otherwise, simply continue.
                 return this._onTransitionOut();
             }
         },
 
-        // This is most of the original show function.
+
+        /**
+         * This is most of the original show function
+         * @param  {Object} oldView view instance
+         * @return {[type]}         [description]
+         */
         _onTransitionOut: function(oldView) {
 
+            var view,
+                options,
+                showOptions,
+                isDifferentView,
+                preventDestroy,
+                forceShow,
+                isChangingView,
+                animatingIn,
+                _shouldDestroyView,
+                _shouldShowView,
+                transitionInCss;
 
-            console.log('_onTransitionOut', oldView);
+            console.log('region --> _onTransitionOut, old view =', oldView);
 
             // does this do anything?
             this.triggerMethod('animateOut', this.currentView);
 
-            var view = this._inQueueView;
-            var options = this._inQueueOptions;
+            view = this._inQueueView;
+            options = this._inQueueOptions;
             this._clearInQueue();
 
             // This is the last time to update what view is about to be shown.
             // At this point, any subsequent shows will cause a brand new animation phase
             // to commence.
-            this._animatingOut = false;
-            this._animatingIn = true;
+            this.isAnimatingOut = false;
+            this.isAnimatingIn = true;
 
-            var showOptions = options || {};
-            var isDifferentView = view !== this.currentView;
-            var preventDestroy = !!showOptions.preventDestroy;
-            var forceShow = !!showOptions.forceShow;
+            showOptions = options || {};
+            isDifferentView = view !== this.currentView;
+            preventDestroy = !!showOptions.preventDestroy;
+            forceShow = !!showOptions.forceShow;
 
             // we are only changing the view if there is a view to change to begin with
-            var isChangingView = !!this.currentView;
+            isChangingView = !!this.currentView;
 
-            console.log('is changing view', isChangingView);
-            console.log(this.currentView);
+            console.log('region --> is changing view = ', isChangingView);
+
 
             // The region is only animating if there's an animateIn method on the new view
-            var animatingIn = _.isFunction(view.animateIn);
+            animatingIn = _.isFunction(view.animateIn);
 
             // only destroy the view if we don't want to preventDestroy and the view is different
-            var _shouldDestroyView = !preventDestroy && isDifferentView && !this.getOption('concurrentTransition');
-/*                console.log(!preventDestroy);
-                 console.log(isDifferentView);
-                  console.log(!this.getOption('concurrentTransition'));
-                  console.log(_shouldDestroyView);*/
+            _shouldDestroyView = !preventDestroy && isDifferentView && !this.getOption('concurrentTransition');
+
 
             // Destroy the old view
             if (_shouldDestroyView) {
@@ -157,7 +216,7 @@ define([
             }
 
             // show the view if the view is different or if you want to re-show the view
-            var _shouldShowView = isDifferentView || forceShow;
+            _shouldShowView = isDifferentView || forceShow;
 
             // Cut things short if we're not showing the view
             if (!_shouldShowView) {
@@ -173,6 +232,7 @@ define([
 
             // before:show triggerMethods
             this.triggerMethod('before:show', view);
+
             if (_.isFunction(view.triggerMethod)) {
                 view.triggerMethod('before:show');
             } else {
@@ -181,7 +241,7 @@ define([
 
             // Only hide the view if we want to animate it
             if (animatingIn) {
-                var transitionInCss = view.transitionInCss || this.transitionInCss;
+                transitionInCss = view.transitionInCss || this.transitionInCss;
                 view.$el.css(transitionInCss);
             }
 
@@ -217,7 +277,10 @@ define([
             }
         },
 
-        // Append the new child
+        /**
+         * Append the new child
+         * @param  {Object} view instance
+         */
         appendHtml: function(view) {
             this.el.appendChild(view.el);
         },
@@ -226,7 +289,7 @@ define([
          * this overwrites Marionette's standard attachView
          * to fire a method on the current view
          * @param  {Object} view - view instance to show
-         * @return {[type]}      [description]
+         * @return {Object} region
          */
         attachView: function(view) {
             this.currentView = view;
@@ -235,15 +298,13 @@ define([
                 view.attachView();
             }
 
-            console.log(this.currentView);
-
             return this;
         },
 
 
         /**
-         * _onTransitionIn removes old view when new view is done animating
-         * and triggerMethod 'animateIn'
+         * called when new view is done animating
+         * it removes old view and triggerMethod 'animateIn'
          * @param  {Object} options
          * @return {Object} this
          */
@@ -262,22 +323,30 @@ define([
             }
 
             delete this._oldView;
-            this._animatingIn = false;
-            this.triggerMethod('animateIn', this.currentView);
+
+            this.isAnimatingIn = false;
+            this.triggerMethod('animateIn', this.currentView); // triggers onAnimateIn on region
+
             return this;
         },
 
-        // Empty the region, animating the view out first if it needs to be
+        /**
+         * Empty the region, animating the view out first if it needs to be
+         * @param  {Object} options [description]
+         */
         empty: function(options) {
+
+            var view = this.currentView,
+                animate;
+
             options = options || {};
 
-            var view = this.currentView;
             if (!view || view.isDestroyed) {
                 return;
             }
 
             // Animate by default
-            var animate = options.animate === undefined ? true : options.animate;
+            animate = options.animate === undefined ? true : options.animate;
 
             // Animate the view before destroying it if a function exists. Otherwise,
             // immediately destroy it
@@ -289,11 +358,15 @@ define([
             }
         },
 
+        /**
+         * destroys the current view, called when emptying a region
+         * either immediately or after animating out
+         * @return {Undefined}
+         */
         _destroyView: function() {
 
-console.log('_destroyView', view);
-
             var view = this.currentView;
+
             if (!view || view.isDestroyed) {
                 return;
             }
@@ -310,7 +383,7 @@ console.log('_destroyView', view);
             this.triggerMethod('empty', view);
 
             delete this.currentView;
-        },
+        }
     });
 
 });

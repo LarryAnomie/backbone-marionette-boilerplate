@@ -73,11 +73,12 @@
     text-align: center;
     background: #0ac2d2;
     padding: 4em 0;
+    font-size: 2rem;
     color: #fff;
     opacity: 1;
     text-align: left;
     display: block;
-    left: 0;
+    //left: 0;
     left: 100%;
     margin-bottom: 128px; // needs to be same height as footer to reveal footer beneath
 
@@ -93,6 +94,10 @@
                 height: 100%;
                 top: 0;
                 left: 0; */
+    }
+
+    h1 {
+        text-align: center;
     }
 }
 

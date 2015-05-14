@@ -11,10 +11,11 @@ define([
     'Views/ExtendView',
     '../config/common',
     '../../bower_components/requirejs-text/text!../../templates/page.html',
+    'ScrollToPlugin',
     'parallaxify',
     'debug',
     'animationGsap'
-], function($, _, Backbone, Marionette, Velocity, TweenMax, ScrollMagic, ExtendView, common, tmpl) {
+], function($, _, Backbone, Marionette, Velocity, TweenMax, ScrollMagic, ExtendView, common, tmpl, ScrollToPlugin) {
 
 
     'use strict';
@@ -65,8 +66,56 @@ define([
         },
 
         _galaxy : function() {
-            var parallaxifyOptions = {
-                positionProperty: 'transform',
+
+            /**
+             * set a reverse positionProperty - mouse goes right, object goes left
+             * @type {Object}
+             */
+            $.parallaxify.positionProperty.flipya = {
+                setPosition: function($element, left, originalLeft, top, originalTop) {
+
+                    console.log($element);
+
+                    var newLeft = left - originalLeft,
+                        newTop = top - originalTop;
+
+                    newLeft = (newLeft < 0) ? Math.abs(newLeft) : -Math.abs(newLeft);
+                    newTop = (newTop < 0) ? Math.abs(newTop) : -Math.abs(newTop);
+
+                    $element[0].style[common.prefixedTransform] = 'translate3d(' + newLeft + 'px, ' + newTop + 'px, 0)';
+
+                }
+            };
+
+            this.$world = this.$('.js-world');
+            this.$galaxy = this.$('.js-galaxy');
+
+/*            $.parallaxify({
+                positionProperty: 'flipya',
+                responsive: true,
+                motionType: 'natural',
+                mouseMotionType: 'gaussian',
+                motionAngleX: 80,
+                motionAngleY: 80,
+                alphaFilter: 0.5,
+                adjustBasePosition: true,
+                alphaPosition: 0.025
+            });*/
+
+/*            this.$world.parallaxify({
+                positionProperty: 'flipya',
+                responsive: true,
+                motionType: 'natural',
+                mouseMotionType: 'gaussian',
+                motionAngleX: 80,
+                motionAngleY: 80,
+                alphaFilter: 0.5,
+                adjustBasePosition: true,
+                alphaPosition: 0.025
+            });*/
+
+            this.$galaxy.parallaxify({
+                positionProperty: 'flipya',
                 responsive: true,
                 motionType: 'natural',
                 mouseMotionType: 'gaussian',
@@ -75,28 +124,9 @@ define([
                 alphaFilter: 0.5,
                 adjustBasePosition: true,
                 alphaPosition: 0.025,
-            };
+                parallaxElements : true
+            });
 
-            $.parallaxify.positionProperty.rotate = {
-                setPosition: function($element, left, originalLeft, top, originalTop) {
-                    console.log($element, left, originalLeft, top, originalTop);
-                    $element.css('transform', 'translateX(-' + left + 'px) translateY(-' + top + 'px)');
-                }
-            };
-
-            this.$world = this.$('#world');
-            this.$galaxy = $('#galaxy');
-
-            console.log(this.$galaxy.parallaxify());
-
-            /*$.parallaxify(parallaxifyOptions);*/
-
-            this.$world.parallaxify(parallaxifyOptions);
-
-            $('#galaxy').parallaxify({positionProperty: 'rotate'});
-
-            this.$world.parallaxify(parallaxifyOptions);
-            this.$galaxy.parallaxify(parallaxifyOptions);
         },
 
         // react to when a view has been shown
@@ -245,96 +275,6 @@ define([
         },
 
         /**
-         * js animate in
-         * @param  {Function} callback   [description]
-         * @param  {[type]}   transition [description]
-         * @return {[type]}              [description]
-         */
-        animateIn: function(callback, transition) {
-
-            var view = this,
-                delay,
-                animateIn = function() {
-
-                    view.$el.velocity({
-                        translateZ: 0, // Force HA by animating a 3D property
-                        translateX: '-100%',
-                    }, {
-                        duration: view.duration,
-                        easing: 'linear',
-                        progress: function(elements, percentComplete, timeRemaining, timeStart) {
-
-                            if (percentComplete > 0.5) {
-                                //view.$el.velocity('stop', true);
-                            }
-                        },
-                        begin: function() {
-                            view._scrollTo(common.dom.$body);
-                        },
-                        complete: function() {
-                            view.trigger('animateIn');
-
-                            view.$el.removeClass(view.classes.animatingIn);
-
-                            if (_.isFunction(callback)) {
-                                callback();
-                            }
-                        }
-                    });
-
-                };
-
-            view.$el.addClass(view.classes.animatingIn);
-
-            // call animateIn after a short delay to allow for animating DOM element
-            _.delay(animateIn, 20);
-
-        },
-
-        /**
-         * js animate out
-         * @param  {Function} callback   [description]
-         * @param  {[type]}   transition [description]
-         * @return {[type]}              [description]
-         */
-        animateOut: function(callback, transition) {
-
-            console.log('animateOut called', this.$el);
-
-            var view = this;
-
-            view.$el
-                .addClass(view.classes.animatingOut)
-                .velocity({
-                    translateZ: 0, // Force HA by animating a 3D property
-                    translateX: ['-200%', '-100%'] // force feed starting position to be -100
-                }, {
-                    delay: 20,
-                    duration: view.duration,
-                    easing: 'linear',
-                    progress: function(elements, percentComplete, timeRemaining, timeStart) {
-
-                        //console.log(percentComplete);
-
-                        if (percentComplete > 0.5) {
-                            // view.$el.velocity('stop', true);
-                        }
-                    },
-                    complete: function() {
-
-                        view.$el.removeClass(view.classes.animatingOut);
-                        view.trigger('animateOut');
-
-                        if (_.isFunction(callback)) {
-                            callback();
-                        }
-                    }
-                });
-
-        },
-
-
-        /**
          *
          * kills this view, unbind any events and destroy stuff here
          *
@@ -355,7 +295,7 @@ define([
 
             // kill all scences
             for (i; i < scenesLength; i++) {
-                scenes.destroy(false);
+                scenes[i].destroy(false);
                 scenes[i] = null;
             }
 

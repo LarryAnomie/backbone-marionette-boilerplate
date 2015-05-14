@@ -5,13 +5,13 @@ define([
     'lodash',
     'backbone',
     'marionette',
-    'velocity',
     'TweenMax',
     'ScrollMagic',
     '../config/common',
     '../../bower_components/requirejs-text/text!../../templates/page.html',
+    'ScrollToPlugin',
     'debug'
-], function($, _, Backbone, Marionette, Velocity, TweenMax, ScrollMagic, common, tmpl) {
+], function($, _, Backbone, Marionette, TweenMax, ScrollMagic, common, tmpl, ScrollToPlugin) {
 
 
     'use strict';
@@ -29,7 +29,8 @@ define([
             visible: 'page--is-visible'
         },
 
-        duration: 1, // default animation duration
+        inDuration: 1, // default animation duration
+        outDuration : 1,
 
         initialize: function(options) {
 
@@ -64,8 +65,7 @@ define([
                 return;
             }
 
-            //scroll to 0 pixels down from the top
-TweenMax.to(window, 2, {scrollTo:{y:0}, ease:Power2.easeOut});
+
 
 /*            $el.velocity('scroll', {
                 duration: animDuration,
@@ -81,11 +81,11 @@ TweenMax.to(window, 2, {scrollTo:{y:0}, ease:Power2.easeOut});
         },
 
         onAttach: function() {
-            console.log(this, 'onAttach');
+            console.log(this, 'view ---> onAttach');
         },
 
         onBeforeAttach: function() {
-            console.log(this, 'on before attach');
+            console.log(this, 'view ---> on before attach');
         },
 
 
@@ -145,11 +145,11 @@ TweenMax.to(window, 2, {scrollTo:{y:0}, ease:Power2.easeOut});
         },
 
         onAnimateIn : function(view) {
-            console.log('onAnimateIn', view);
+            console.log('view ---> onAnimateIn', view);
         },
 
         onBeforeEmpty : function() {
-            console.log('onBeforeEmpty');
+            console.log('view ---> onBeforeEmpty');
         },
 
         /**
@@ -160,55 +160,57 @@ TweenMax.to(window, 2, {scrollTo:{y:0}, ease:Power2.easeOut});
          */
         animateIn: function(callback, transition) {
 
-            var view = this,
-                delay,
-                animateIn = function() {
-
-                    TweenMax.to(view.$el, view.duration, {
-                        xPercent: '-100%',
-                        ease: 'Power4.easeIn',
-                        onComplete: function() {
-                            view.trigger('animateIn');
-
-                            view.$el.removeClass(view.classes.animatingIn);
-                            view.$el.addClass(view.classes.visible);
-
-                        }
-                    });
+            var self = this;
 
 
-                    /*view.$el.velocity({
-                        translateZ: 0, // Force HA by animating a 3D property
-                        translateX: '-100%',
-                    }, {
-                        duration: view.duration,
-                        easing: 'linear',
-                        progress: function(elements, percentComplete, timeRemaining, timeStart) {
+            self.$el.addClass(self.classes.animatingIn);
 
-                            if (percentComplete > 0.5) {
-                                //view.$el.velocity('stop', true);
-                            }
-                        },
-                        begin : function() {
-                            view._scrollTo(common.dom.$body);
-                        },
-                        complete: function() {
-                            view.trigger('animateIn');
+            console.log('view --> about to animateIn');
 
-                            view.$el.removeClass(view.classes.animatingIn);
+            TweenMax.to(self.$el, self.inDuration, {
+                xPercent: '-100%',
+                z: 0.01,
+                ease: 'Power4.easeIn',
+                delay : 0,
+                onComplete: function() {
+                    console.log('view ---> animate in finished, triggered animateIn event');
+                    self.trigger('animateIn');
 
-                            if (_.isFunction(callback)) {
-                                callback();
-                            }
-                        }
-                    });*/
+                    self.$el.removeClass(self.classes.animatingIn);
+                    self.$el.addClass(self.classes.visible);
 
-                };
+                }
+            });
 
-            view.$el.addClass(view.classes.animatingIn);
+        },
 
-            // call animateIn after a short delay to allow for animating DOM element
-            _.delay(animateIn, 20);
+
+        /**
+         * animates out the view then trigger animateOut event
+         */
+        _performAnimateOut : function() {
+            var self = this;
+
+            TweenMax.fromTo(self.$el, self.outDuration,
+                {
+                    xPercent: '-100%',
+
+                }, {
+                    delay : 0,
+                    xPercent: '-200%',
+                    z: 0.01,
+                    ease:'Power4.easeOut',
+                    onComplete: function() {
+
+                        console.log('view ---> animating out finished, trigger animateOut event');
+
+
+                        self.trigger('animateOut');
+                        self.$el.removeClass( self.classes.animatingIn );
+
+                    }
+                }
+            );
 
         },
 
@@ -220,55 +222,26 @@ TweenMax.to(window, 2, {scrollTo:{y:0}, ease:Power2.easeOut});
          */
         animateOut: function(callback, transition) {
 
-            console.log('animateOut called', this.$el);
+            console.log('view ---> about to animate out', this.id);
 
-            var view = this;
+            var self = this;
 
-            view.$el.addClass(view.classes.animatingOut);
+            self.$el.addClass(self.classes.animatingOut);
 
-            TweenMax.fromTo(view.$el, 10, {
-                    xPercent: '-100%',
-                    x : 0
-                }, {
-                delay : 0.6,
-                xPercent: '-200%',
-                ease:'Power4.easeOut',
-                onComplete: function() {
-                    console.log('aniamted out');
-                    view.trigger('animateOut');
+            if (common.getY) {
 
-                    view.$el.removeClass(view.classes.animatingIn);
-
-                }
-            });
-
-            /*view.$el
-                .addClass(view.classes.animatingOut)
-                .velocity({
-                    translateZ: 0, // Force HA by animating a 3D property
-                    translateX: [ '-200%', '-100%' ] // force feed starting position to be -100
-                }, {
-                    delay: 20,
-                    duration: view.duration,
-                    easing: 'linear',
-                    progress: function(elements, percentComplete, timeRemaining, timeStart) {
-
-                        //console.log(percentComplete);
-
-                        if (percentComplete > 0.5) {
-                           // view.$el.velocity('stop', true);
-                        }
-                    },
-                    complete: function() {
-
-                        view.$el.removeClass(view.classes.animatingOut);
-                        view.trigger('animateOut');
-
-                        if (_.isFunction(callback)) {
-                            callback();
-                        }
+                // scroll to 0 pixels down from the top
+                TweenMax.to(window, 0.7, {
+                    scrollTo: { y : 0 },
+                    ease:'Power2.easeOut',
+                    onComplete: function() {
+                        self._performAnimateOut();
                     }
-                });*/
+                });
+
+            } else {
+                this._performAnimateOut();
+            }
 
         },
 

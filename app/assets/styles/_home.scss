@@ -1,23 +1,39 @@
 .parallaxify {
-    height: 600px;
+    height: 40em;
     margin: 0 -80px;
     margin-bottom: 2em;
 }
 
-.galaxy {
+.parallaxify__inner {
     position: relative;
-    background: transparent url("../images/parallax-bg.jpg") no-repeat 0 0;
-    height: 600px;
+    height: 40em;
     width: 100%;
+    overflow: hidden;
+}
+
+.galaxy {
+    background: red;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
     overflow: visible;
+
+    img {
+        width: 110%;
+    }
 }
 
 .world {
-    background: transparent url("../images/parallax-fg.png") no-repeat center center;
     background-size: contain;
-    height: 90%;
-    width: 90%;
     position: absolute;
-    top: 2%;
-    left: 2%;
+    top: 0;
+    left: 0;
+}
+
+.world__image {
+    @include respond-min(45em) {
+        margin-top: -10em;
+    }
 }

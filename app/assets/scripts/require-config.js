@@ -22,9 +22,9 @@ require.config({
         TweenMax: '../bower_components/greensock/src/uncompressed/TweenMax',
         debug : '../bower_components/ScrollMagic/scrollmagic/uncompressed/plugins/debug.addIndicators',
         animationGsap : '../bower_components/ScrollMagic/scrollmagic/uncompressed/plugins/animation.gsap',
-        TweenMax : '../bower_components/greensock/src/uncompressed/TweenMax',
         TweenLite : '../bower_components/greensock/src/uncompressed/TweenLite',
-        'TimelineMax' : '../bower_components/greensock/src/uncompressed/TimelineMax'
+        TimelineMax : '../bower_components/greensock/src/uncompressed/TimelineMax',
+        ScrollToPlugin : 'vendor/ScrollToPlugin'
     },
     shim: {
         'modernizr': {
@@ -40,11 +40,13 @@ require.config({
         'parallaxify' : {
             deps : ['jquery']
         },
-
         'TweenMax': {
             exports: 'TweenMax'
-
-        }
+        }/*,
+        'ScrollToPlugin' : {
+            deps : ['TweenMax'],
+            exports : 'ScrollToPlugin'
+        }*/
     },
     map: {
         '*': {
