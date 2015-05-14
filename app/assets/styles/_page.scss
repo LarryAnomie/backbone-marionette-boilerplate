@@ -5,6 +5,21 @@
     color: #000;
 }
 
+.content-section {
+    padding-bottom: 2em;
+}
+
+.parallaxParent {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.parallaxParent > * {
+    height: 200%;
+    position: relative;
+    top: -100%;
+}
+
 .pane.green {
     margin-bottom: 400px;
 }
@@ -60,10 +75,11 @@
     padding: 4em 0;
     color: #fff;
     opacity: 1;
+    text-align: left;
     display: block;
     left: 0;
     left: 100%;
-    margin-bottom: 128px; // needs to be same height as footer
+    margin-bottom: 128px; // needs to be same height as footer to reveal footer beneath
 
     &.page--is-visible {
         // transform: translate3d(0, 0, 0);

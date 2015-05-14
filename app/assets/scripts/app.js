@@ -1,20 +1,23 @@
 /* global define, Modernizr */
 
-define([
-    'jquery',
-    'backbone',
-    'marionette',
-    'lodash',
-    'Regions/MainRegion',
-    'Collections/PageCollection',
-    'Views/NavView',
-    'data',
-    'config/common',
-    'SVGInjector',
-    'Views/FooterView'
-], function($, Backbone, Marionette, _, MainRegion, PageCollection, NavView, data, common, SVGInjector, FooterView) {
+define(function(require) {
 
     'use strict';
+
+    // dependencies, using commonjs style for clarity
+
+    var $ = require('jquery');
+    var Backbone = require('backbone');
+    var Marionette = require('marionette');
+    var _ = require('lodash');
+    var MainRegion = require('Regions/MainRegion');
+    var PageCollection = require('Collections/PageCollection');
+    var NavView = require('Views/NavView');
+    var data = require('data');
+    var common = require('config/common');
+    var SVGInjector= require('SVGInjector');
+    var FooterView = require('Views/FooterView');
+    var StickyHeaderView = require('Views/StickyHeaderView');
 
     var app = new Marionette.Application();
 
@@ -35,6 +38,10 @@ define([
         el: '.js-footer-view'
     });
 
+    var stickyHeaderView = new StickyHeaderView({
+        el : '.js-header'
+    });
+
     var RootView = Marionette.LayoutView.extend({
         el: 'body'
     });
@@ -44,7 +51,7 @@ define([
     // Organize application into regions corresponding to DOM elements
 
     app.rootView.addRegions({
-        headerRegion: '.js-nav',
+        headerRegion: '.js-header',
         mainRegion: new MainRegion({
             el: '.js-main'
         }),
@@ -55,6 +62,7 @@ define([
 
         app.rootView.headerRegion.show(navView);
         app.rootView.footerRegion.attachView(footerView); // footer already exisits in the DOM
+        app.rootView.headerRegion.attachView(stickyHeaderView); // footer already exisits in the DOM
 
         Backbone.history.start({
             pushState: true

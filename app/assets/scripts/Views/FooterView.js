@@ -10,7 +10,7 @@ define([
 
     'use strict';
 
-    var HomeView = Backbone.Marionette.View.extend({
+    var FooterView = Backbone.Marionette.View.extend({
 
         initialize: function (options) {
 
@@ -57,6 +57,6 @@ define([
 
     });
 
-    return HomeView;
+    return FooterView;
 
 });

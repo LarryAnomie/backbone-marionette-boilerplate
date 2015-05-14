@@ -7,14 +7,6 @@ define([
     'marionette',
     'velocity',
     'TweenMax',
-<<<<<<< HEAD
-    'Views/ExtendView',
-    '../config/common',
-    '../../bower_components/requirejs-text/text!../../templates/page.html',
-    'ScrollMagic',
-    'parallaxify'
-], function($, _, Backbone, Marionette, Velocity, TweenMax, ExtendView, common, tmpl, ScrollMagic) {
-=======
     'ScrollMagic',
     'Views/ExtendView',
     '../config/common',
@@ -23,7 +15,7 @@ define([
     'debug',
     'animationGsap'
 ], function($, _, Backbone, Marionette, Velocity, TweenMax, ScrollMagic, ExtendView, common, tmpl) {
->>>>>>> 93a375f9a339311bf29f552a6ee42f9586b9e85a
+
 
     'use strict';
 
@@ -72,10 +64,7 @@ define([
 
         },
 
-        onShow: function() {
-
-            // react to when a view has been shown
-
+        _galaxy : function() {
             var parallaxifyOptions = {
                 positionProperty: 'transform',
                 responsive: true,
@@ -103,13 +92,18 @@ define([
             /*$.parallaxify(parallaxifyOptions);*/
 
             this.$world.parallaxify(parallaxifyOptions);
-            $('#galaxy').parallaxify({positionProperty: 'rotate'});
 
+            $('#galaxy').parallaxify({positionProperty: 'rotate'});
 
             this.$world.parallaxify(parallaxifyOptions);
             this.$galaxy.parallaxify(parallaxifyOptions);
+        },
 
-            // init
+        // react to when a view has been shown
+        onShow: function() {
+
+            this._galaxy();
+
             // init controller
             this.controller = new ScrollMagic.Controller({
                 globalSceneOptions: {
@@ -118,38 +112,50 @@ define([
                 }
             });
 
+            this.scenes = [];
+
             // build scenes
-            new ScrollMagic.Scene({
-                triggerElement: '#parallax1'
-            })
+            this.scenes.push(
+
+                new ScrollMagic.Scene({
+                    triggerElement: '#parallax1'
+                })
                 .setTween('#parallax1 > div', {
                     y: '80%',
-                    ease: Linear.easeNone
+                    ease: 'Linear.easeNone'
                 })
                 .addIndicators()
-                .addTo(this.controller);
+                .addTo(this.controller)
 
-            new ScrollMagic.Scene({
-                triggerElement: '#parallax2'
-            })
+            );
+
+            this.scenes.push(
+                new ScrollMagic.Scene({
+                    triggerElement: '#parallax2'
+                })
                 .setTween('#parallax2 > div', {
                     y: '80%',
-                    ease: Linear.easeNone
+                    ease: 'Linear.easeNone'
                 })
                 .addIndicators()
-                .addTo(this.controller);
+                .addTo(this.controller)
+            );
 
-            new ScrollMagic.Scene({
-                triggerElement: '#parallax3'
-            })
+            this.scenes.push(
+
+                new ScrollMagic.Scene({
+                    triggerElement: '#parallax3'
+                })
                 .setTween('#parallax3 > div', {
                     y: '80%',
-                    ease: Linear.easeNone
+                    ease: 'Linear.easeNone'
                 })
                 .addIndicators()
-                .addTo(this.controller);
+                .addTo(this.controller)
 
-            var slides = document.querySelectorAll('section.panel');
+            );
+
+/*            var slides = document.querySelectorAll('section.panel');
 
             // create scene for every slide
             for (var i = 0; i < slides.length; i++) {
@@ -159,7 +165,7 @@ define([
                     .setPin(slides[i])
                     .addIndicators() // add indicators (requires plugin)
                 .addTo(this.controller);
-            }
+            }*/
 
 
         },
@@ -238,8 +244,6 @@ define([
 
         },
 
-<<<<<<< HEAD
-=======
         /**
          * js animate in
          * @param  {Function} callback   [description]
@@ -328,20 +332,32 @@ define([
                 });
 
         },
->>>>>>> 93a375f9a339311bf29f552a6ee42f9586b9e85a
+
 
         /**
          *
-         * kills this view, unbind any events here
+         * kills this view, unbind any events and destroy stuff here
          *
          */
         remove: function() {
 
-            console.log('home view remove');
+            var i = 0,
+                scenes = this.scenes,
+                scenesLength = scenes.length;
 
             this.$world.parallaxify('destroy');
             this.$galaxy.parallaxify('destroy');
 
+
+            // destroy scrollMagic controller
+            this.controller.destroy(true);
+            this.controller = null;
+
+            // kill all scences
+            for (i; i < scenesLength; i++) {
+                scenes.destroy(false);
+                scenes[i] = null;
+            }
 
             // don't forget to call the original remove() function
             Backbone.View.prototype.remove.call(this);
