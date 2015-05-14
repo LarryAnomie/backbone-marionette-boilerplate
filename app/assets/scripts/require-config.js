@@ -24,7 +24,8 @@ require.config({
         animationGsap : '../bower_components/ScrollMagic/scrollmagic/uncompressed/plugins/animation.gsap',
         TweenLite : '../bower_components/greensock/src/uncompressed/TweenLite',
         TimelineMax : '../bower_components/greensock/src/uncompressed/TimelineMax',
-        ScrollToPlugin : 'vendor/ScrollToPlugin'
+        ScrollToPlugin : 'vendor/ScrollToPlugin',
+        Parallax : '../bower_components/paralaxJS/deploy/parallax'
     },
     shim: {
         'modernizr': {
@@ -42,11 +43,10 @@ require.config({
         },
         'TweenMax': {
             exports: 'TweenMax'
-        }/*,
-        'ScrollToPlugin' : {
-            deps : ['TweenMax'],
-            exports : 'ScrollToPlugin'
-        }*/
+        },
+        'Parallax' : {
+            exports : 'Parallax'
+        }
     },
     map: {
         '*': {

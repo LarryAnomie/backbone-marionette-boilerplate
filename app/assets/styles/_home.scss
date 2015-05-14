@@ -1,12 +1,10 @@
 .parallaxify {
-    height: 40em;
     margin: 0 -80px;
     margin-bottom: 2em;
 }
 
 .parallaxify__inner {
     position: relative;
-    height: 40em;
     width: 100%;
     overflow: hidden;
 }
@@ -34,6 +32,6 @@
 
 .world__image {
     @include respond-min(45em) {
-        margin-top: -10em;
+        //-top: -10em;
     }
 }

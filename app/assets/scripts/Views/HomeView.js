@@ -5,18 +5,16 @@ define([
     'lodash',
     'backbone',
     'marionette',
-    'velocity',
     'TweenMax',
     'ScrollMagic',
     'Views/ExtendView',
     '../config/common',
     '../../bower_components/requirejs-text/text!../../templates/page.html',
     'ScrollToPlugin',
-    'parallaxify',
+    'Parallax',
     'debug',
     'animationGsap'
-], function($, _, Backbone, Marionette, Velocity, TweenMax, ScrollMagic, ExtendView, common, tmpl, ScrollToPlugin) {
-
+], function($, _, Backbone, Marionette, TweenMax, ScrollMagic, ExtendView, common, tmpl, ScrollToPlugin, Parallax) {
 
     'use strict';
 
@@ -65,74 +63,20 @@ define([
 
         },
 
-        _galaxy : function() {
+        parallax : function() {
 
-            /**
-             * set a reverse positionProperty - mouse goes right, object goes left
-             * @type {Object}
-             */
-            $.parallaxify.positionProperty.flipya = {
-                setPosition: function($element, left, originalLeft, top, originalTop) {
+            this.$parallaxScene = this.$('#p-scene');
 
-                    console.log($element);
-
-                    var newLeft = left - originalLeft,
-                        newTop = top - originalTop;
-
-                    newLeft = (newLeft < 0) ? Math.abs(newLeft) : -Math.abs(newLeft);
-                    newTop = (newTop < 0) ? Math.abs(newTop) : -Math.abs(newTop);
-
-                    $element[0].style[common.prefixedTransform] = 'translate3d(' + newLeft + 'px, ' + newTop + 'px, 0)';
-
-                }
-            };
-
-            this.$world = this.$('.js-world');
-            this.$galaxy = this.$('.js-galaxy');
-
-/*            $.parallaxify({
-                positionProperty: 'flipya',
-                responsive: true,
-                motionType: 'natural',
-                mouseMotionType: 'gaussian',
-                motionAngleX: 80,
-                motionAngleY: 80,
-                alphaFilter: 0.5,
-                adjustBasePosition: true,
-                alphaPosition: 0.025
-            });*/
-
-/*            this.$world.parallaxify({
-                positionProperty: 'flipya',
-                responsive: true,
-                motionType: 'natural',
-                mouseMotionType: 'gaussian',
-                motionAngleX: 80,
-                motionAngleY: 80,
-                alphaFilter: 0.5,
-                adjustBasePosition: true,
-                alphaPosition: 0.025
-            });*/
-
-            this.$galaxy.parallaxify({
-                positionProperty: 'flipya',
-                responsive: true,
-                motionType: 'natural',
-                mouseMotionType: 'gaussian',
-                motionAngleX: 80,
-                motionAngleY: 80,
-                alphaFilter: 0.5,
-                adjustBasePosition: true,
-                alphaPosition: 0.025,
-                parallaxElements : true
-            });
+            if (this.$parallaxScene.length) {
+                this.parallax = new Parallax(this.$parallaxScene[0]);
+            }
 
         },
 
         // react to when a view has been shown
         onShow: function() {
 
-            this._galaxy();
+            this.parallax();
 
             // init controller
             this.controller = new ScrollMagic.Controller({
@@ -285,9 +229,7 @@ define([
                 scenes = this.scenes,
                 scenesLength = scenes.length;
 
-            this.$world.parallaxify('destroy');
-            this.$galaxy.parallaxify('destroy');
-
+            this.parallax.disable();
 
             // destroy scrollMagic controller
             this.controller.destroy(true);

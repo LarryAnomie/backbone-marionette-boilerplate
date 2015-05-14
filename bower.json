@@ -16,6 +16,7 @@
     "svg-injector": "~1.1.2",
     "jquery.parallaxify": "*",
     "ScrollMagic": "~2.0.5",
-    "greensock": "~1.16.1"
+    "greensock": "~1.16.1",
+    "paralaxJS": "~2.1.3"
   }
 }
