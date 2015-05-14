@@ -7,9 +7,12 @@ define([
     'marionette',
     'velocity',
     'TweenMax',
+    'ScrollMagic',
     '../config/common',
-    '../../bower_components/requirejs-text/text!../../templates/page.html'
-], function($, _, Backbone, Marionette, Velocity, TweenMax, common, tmpl) {
+    '../../bower_components/requirejs-text/text!../../templates/page.html',
+    'debug'
+], function($, _, Backbone, Marionette, Velocity, TweenMax, ScrollMagic, common, tmpl) {
+
 
     'use strict';
 
@@ -61,11 +64,14 @@ define([
                 return;
             }
 
-            $el.velocity('scroll', {
+            //scroll to 0 pixels down from the top
+TweenMax.to(window, 2, {scrollTo:{y:0}, ease:Power2.easeOut});
+
+/*            $el.velocity('scroll', {
                 duration: animDuration,
                 easing: animEasing,
                 complete: animCb
-            });
+            });*/
 
         },
 

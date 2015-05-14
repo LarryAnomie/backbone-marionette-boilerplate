@@ -7,12 +7,23 @@ define([
     'marionette',
     'velocity',
     'TweenMax',
+<<<<<<< HEAD
     'Views/ExtendView',
     '../config/common',
     '../../bower_components/requirejs-text/text!../../templates/page.html',
     'ScrollMagic',
     'parallaxify'
 ], function($, _, Backbone, Marionette, Velocity, TweenMax, ExtendView, common, tmpl, ScrollMagic) {
+=======
+    'ScrollMagic',
+    'Views/ExtendView',
+    '../config/common',
+    '../../bower_components/requirejs-text/text!../../templates/page.html',
+    'parallaxify',
+    'debug',
+    'animationGsap'
+], function($, _, Backbone, Marionette, Velocity, TweenMax, ScrollMagic, ExtendView, common, tmpl) {
+>>>>>>> 93a375f9a339311bf29f552a6ee42f9586b9e85a
 
     'use strict';
 
@@ -42,7 +53,7 @@ define([
          * @param {Strin} easing - easing to use
          * @param {Function} cb - callback fn
          */
-        _scrollTo : function($el, duration, easing, cb) {
+        _scrollTo: function($el, duration, easing, cb) {
 
             var animDuration = duration ? duration : 250,
                 animEasing = easing ? easing : 'ease-out',
@@ -87,7 +98,7 @@ define([
             this.$world = this.$('#world');
             this.$galaxy = $('#galaxy');
 
-            console.log(this.$galaxy.parallaxify() );
+            console.log(this.$galaxy.parallaxify());
 
             /*$.parallaxify(parallaxifyOptions);*/
 
@@ -95,25 +106,60 @@ define([
             $('#galaxy').parallaxify({positionProperty: 'rotate'});
 
 
-            var controller = new ScrollMagic.Controller({
+            this.$world.parallaxify(parallaxifyOptions);
+            this.$galaxy.parallaxify(parallaxifyOptions);
+
+            // init
+            // init controller
+            this.controller = new ScrollMagic.Controller({
                 globalSceneOptions: {
-                    triggerHook: 'onLeave'
+                    triggerHook: 'onEnter',
+                    duration: '200%'
                 }
             });
 
-            // get all slides
-            var slides = document.querySelectorAll('section.pane');
+            // build scenes
+            new ScrollMagic.Scene({
+                triggerElement: '#parallax1'
+            })
+                .setTween('#parallax1 > div', {
+                    y: '80%',
+                    ease: Linear.easeNone
+                })
+                .addIndicators()
+                .addTo(this.controller);
+
+            new ScrollMagic.Scene({
+                triggerElement: '#parallax2'
+            })
+                .setTween('#parallax2 > div', {
+                    y: '80%',
+                    ease: Linear.easeNone
+                })
+                .addIndicators()
+                .addTo(this.controller);
+
+            new ScrollMagic.Scene({
+                triggerElement: '#parallax3'
+            })
+                .setTween('#parallax3 > div', {
+                    y: '80%',
+                    ease: Linear.easeNone
+                })
+                .addIndicators()
+                .addTo(this.controller);
+
+            var slides = document.querySelectorAll('section.panel');
 
             // create scene for every slide
-            for (var i=0; i<slides.length; i++) {
+            for (var i = 0; i < slides.length; i++) {
                 new ScrollMagic.Scene({
-                        triggerElement: slides[i]
-                    })
+                    triggerElement: slides[i]
+                })
                     .setPin(slides[i])
-                    //.addIndicators() // add indicators (requires plugin)
-                    .addTo(controller);
+                    .addIndicators() // add indicators (requires plugin)
+                .addTo(this.controller);
             }
-
 
 
         },
@@ -192,13 +238,104 @@ define([
 
         },
 
+<<<<<<< HEAD
+=======
+        /**
+         * js animate in
+         * @param  {Function} callback   [description]
+         * @param  {[type]}   transition [description]
+         * @return {[type]}              [description]
+         */
+        animateIn: function(callback, transition) {
+
+            var view = this,
+                delay,
+                animateIn = function() {
+
+                    view.$el.velocity({
+                        translateZ: 0, // Force HA by animating a 3D property
+                        translateX: '-100%',
+                    }, {
+                        duration: view.duration,
+                        easing: 'linear',
+                        progress: function(elements, percentComplete, timeRemaining, timeStart) {
+
+                            if (percentComplete > 0.5) {
+                                //view.$el.velocity('stop', true);
+                            }
+                        },
+                        begin: function() {
+                            view._scrollTo(common.dom.$body);
+                        },
+                        complete: function() {
+                            view.trigger('animateIn');
+
+                            view.$el.removeClass(view.classes.animatingIn);
+
+                            if (_.isFunction(callback)) {
+                                callback();
+                            }
+                        }
+                    });
+
+                };
+
+            view.$el.addClass(view.classes.animatingIn);
+
+            // call animateIn after a short delay to allow for animating DOM element
+            _.delay(animateIn, 20);
+
+        },
+
+        /**
+         * js animate out
+         * @param  {Function} callback   [description]
+         * @param  {[type]}   transition [description]
+         * @return {[type]}              [description]
+         */
+        animateOut: function(callback, transition) {
+
+            console.log('animateOut called', this.$el);
+
+            var view = this;
+
+            view.$el
+                .addClass(view.classes.animatingOut)
+                .velocity({
+                    translateZ: 0, // Force HA by animating a 3D property
+                    translateX: ['-200%', '-100%'] // force feed starting position to be -100
+                }, {
+                    delay: 20,
+                    duration: view.duration,
+                    easing: 'linear',
+                    progress: function(elements, percentComplete, timeRemaining, timeStart) {
+
+                        //console.log(percentComplete);
+
+                        if (percentComplete > 0.5) {
+                            // view.$el.velocity('stop', true);
+                        }
+                    },
+                    complete: function() {
+
+                        view.$el.removeClass(view.classes.animatingOut);
+                        view.trigger('animateOut');
+
+                        if (_.isFunction(callback)) {
+                            callback();
+                        }
+                    }
+                });
+
+        },
+>>>>>>> 93a375f9a339311bf29f552a6ee42f9586b9e85a
 
         /**
          *
          * kills this view, unbind any events here
          *
          */
-        remove : function() {
+        remove: function() {
 
             console.log('home view remove');
 
