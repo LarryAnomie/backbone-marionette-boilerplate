@@ -1,4 +1,4 @@
-/* global define, Modernizr */
+/* global define, Modernizr, Linear, Power4, Elastic */
 
 define([
     'jquery',
@@ -6,12 +6,12 @@ define([
     'backbone',
     'marionette',
     'TweenMax',
-    'ScrollMagic',
     '../config/common',
     '../../bower_components/requirejs-text/text!../../templates/page.html',
     'ScrollToPlugin',
-    'debug'
-], function($, _, Backbone, Marionette, TweenMax, ScrollMagic, common, tmpl, ScrollToPlugin) {
+    'debug',
+    'EasePack'
+], function($, _, Backbone, Marionette, TweenMax, common, tmpl, ScrollToPlugin, EasePack) {
 
 
     'use strict';
@@ -19,7 +19,6 @@ define([
     var ExtendView = Backbone.Marionette.View.extend({
 
         className: '',
-
 
         // css classes
         classes: {
@@ -29,8 +28,8 @@ define([
             visible: 'page--is-visible'
         },
 
-        inDuration: 1, // default animation duration
-        outDuration : 1,
+        inDuration: 0.8, // default animation duration
+        outDuration : 0.5,
 
         initialize: function(options) {
 
@@ -167,20 +166,29 @@ define([
 
             console.log('view --> about to animateIn');
 
-            TweenMax.to(self.$el, self.inDuration, {
-                xPercent: '-100%',
-                z: 0.01,
-                ease: 'Power4.easeIn',
-                delay : 0,
-                onComplete: function() {
-                    console.log('view ---> animate in finished, triggered animateIn event');
-                    self.trigger('animateIn');
+            TweenMax.fromTo(self.$el, self.inDuration,
+                {
+                    xPercent: '100%'
+                },
+                {
+                    xPercent: '0%',
+                    delay: 0.5,
+/*                    ease: Linear.easeNone,*/
+                    ease: Power4.easeOut,
 
-                    self.$el.removeClass(self.classes.animatingIn);
-                    self.$el.addClass(self.classes.visible);
+                    onStart : function () {
+                        //debugger;
+                    },
+                    onComplete: function() {
+                        console.log('view ---> animate in finished, triggered animateIn event');
+                        self.trigger('animateIn');
 
+                        self.$el.removeClass(self.classes.animatingIn);
+                        self.$el.addClass(self.classes.visible);
+
+                    }
                 }
-            });
+            );
 
         },
 
@@ -191,15 +199,17 @@ define([
         _performAnimateOut : function() {
             var self = this;
 
-            TweenMax.fromTo(self.$el, self.outDuration,
-                {
-                    xPercent: '-100%',
-
-                }, {
-                    delay : 0,
-                    xPercent: '-200%',
+            TweenMax.to(self.$el, self.outDuration, {
+                    xPercent: '-100%', // animate out right
                     z: 0.01,
-                    ease:'Power4.easeOut',
+                    startAt : {
+                        xPercent : '0%'
+                    },
+                    //ease: Linear.easeNone,
+                    ease: Power4.easeIn,
+                    onStart : function () {
+
+                    },
                     onComplete: function() {
 
                         console.log('view ---> animating out finished, trigger animateOut event');

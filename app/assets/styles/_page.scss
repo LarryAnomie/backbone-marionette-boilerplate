@@ -9,17 +9,6 @@
     padding-bottom: 2em;
 }
 
-.parallaxParent {
-    height: 100vh;
-    overflow: hidden;
-}
-
-.parallaxParent > * {
-    height: 200%;
-    position: relative;
-    top: -100%;
-}
-
 .pane.green {
     margin-bottom: 400px;
 }
@@ -73,18 +62,29 @@
     text-align: center;
     background: #0ac2d2;
     padding: 4em 0;
-    font-size: 2rem;
+    font-size: 16px;
     color: #fff;
     opacity: 1;
     text-align: left;
     display: block;
-    //left: 0;
-    left: 100%;
+    left: 0;
+    //left: 100%;
     margin-bottom: 128px; // needs to be same height as footer to reveal footer beneath
+
+    @include respond-min(45em) {
+        font-size: 22px;
+    }
 
     &.page--is-visible {
         // transform: translate3d(0, 0, 0);
-        transform: translate3d(-100%, 0, 0);
+        //transform: translate3d(-100%, 0, 0);
+        //transform: translate3d(0, 0, 0);
+
+    }
+
+    &.page--is-entering {
+        //transform: translate3d(100%, 0, 0);
+
     }
 
     &.page--is-exiting,

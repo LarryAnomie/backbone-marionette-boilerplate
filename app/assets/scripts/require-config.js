@@ -17,13 +17,13 @@ require.config({
         swiper: '../bower_components/swiper/dist/js/swiper',
         transitionRegion : 'Regions/Marionette.TransitionRegion',
         SVGInjector : '../bower_components/svg-injector/svg-injector',
-        parallaxify : '../bower_components/jquery.parallaxify/jquery.parallaxify',
         ScrollMagic : '../bower_components/ScrollMagic/scrollmagic/uncompressed/ScrollMagic',
         TweenMax: '../bower_components/greensock/src/uncompressed/TweenMax',
         debug : '../bower_components/ScrollMagic/scrollmagic/uncompressed/plugins/debug.addIndicators',
         animationGsap : '../bower_components/ScrollMagic/scrollmagic/uncompressed/plugins/animation.gsap',
         TweenLite : '../bower_components/greensock/src/uncompressed/TweenLite',
         TimelineMax : '../bower_components/greensock/src/uncompressed/TimelineMax',
+        EasePack : '../bower_components/greensock/src/uncompressed/easing/EasePack',
         ScrollToPlugin : 'vendor/ScrollToPlugin',
         Parallax : '../bower_components/paralaxJS/deploy/parallax'
     },
@@ -41,9 +41,9 @@ require.config({
         'parallaxify' : {
             deps : ['jquery']
         },
-        'TweenMax': {
+/*        'TweenMax': {
             exports: 'TweenMax'
-        },
+        },*/
         'Parallax' : {
             exports : 'Parallax'
         }

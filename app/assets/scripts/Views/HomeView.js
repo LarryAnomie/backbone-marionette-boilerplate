@@ -1,23 +1,37 @@
-/* global define, Modernizr */
+/* global define, Modernizr, Linear, Power4, Elastic */
 
-define([
-    'jquery',
-    'lodash',
-    'backbone',
-    'marionette',
-    'TweenMax',
-    'ScrollMagic',
-    'Views/ExtendView',
-    '../config/common',
-    '../../bower_components/requirejs-text/text!../../templates/page.html',
-    'ScrollToPlugin',
-    'Parallax',
-    'debug',
-    'animationGsap'
-], function($, _, Backbone, Marionette, TweenMax, ScrollMagic, ExtendView, common, tmpl, ScrollToPlugin, Parallax) {
+define(function(require) {
 
     'use strict';
 
+    // dependencies, using commonjs style for clarity
+
+    var $ = require('jquery');
+    var Backbone = require('backbone');
+    var Marionette = require('marionette');
+    var _ = require('lodash');
+
+    // bespoke
+    var ExtendView = require('Views/ExtendView');
+    var common = require('config/common');
+    var tmpl = require('../../bower_components/requirejs-text/text!../../templates/page.html');
+
+    // greensock
+    var TweenMax = require('TweenMax');
+    var TimelineMax = require('TimelineMax');
+    var ScrollToPlugin = require('ScrollToPlugin');
+    var animationGsap= require('animationGsap');
+    var EasePack = require('EasePack');
+
+    // ScrollMagic
+    var ScrollMagic = require('ScrollMagic');
+    var debug = require('debug');
+
+    // other
+    var SVGInjector= require('SVGInjector');
+    var Parallax = require('Parallax');
+
+    // begin
     var HomeView = ExtendView.extend({
 
         className: '',
@@ -80,10 +94,10 @@ define([
 
             // init controller
             this.controller = new ScrollMagic.Controller({
-                globalSceneOptions: {
+/*                globalSceneOptions: {
                     triggerHook: 'onEnter',
                     duration: '200%'
-                }
+                }*/
             });
 
             this.scenes = [];
@@ -92,11 +106,13 @@ define([
             this.scenes.push(
 
                 new ScrollMagic.Scene({
-                    triggerElement: '#parallax1'
+                    triggerElement: '#parallax1',
+                    duration: '200%',
+                    triggerHook: 'onEnter'
                 })
                 .setTween('#parallax1 > div', {
                     y: '80%',
-                    ease: 'Linear.easeNone'
+                    ease: Linear.easeNone
                 })
                 .addIndicators()
                 .addTo(this.controller)
@@ -105,11 +121,13 @@ define([
 
             this.scenes.push(
                 new ScrollMagic.Scene({
-                    triggerElement: '#parallax2'
+                    triggerElement: '#parallax2',
+                    duration: '200%',
+                    triggerHook: 'onEnter'
                 })
                 .setTween('#parallax2 > div', {
                     y: '80%',
-                    ease: 'Linear.easeNone'
+                    ease: Linear.easeNone
                 })
                 .addIndicators()
                 .addTo(this.controller)
@@ -118,14 +136,72 @@ define([
             this.scenes.push(
 
                 new ScrollMagic.Scene({
-                    triggerElement: '#parallax3'
+                    triggerElement: '#parallax3',
+                    triggerHook: 'onEnter',
+                    duration: '200%',
                 })
                 .setTween('#parallax3 > div', {
                     y: '80%',
-                    ease: 'Linear.easeNone'
+
+                    ease: Linear.easeNone
                 })
                 .addIndicators()
                 .addTo(this.controller)
+
+            );
+
+            var loader = new TimelineMax(),
+                circles = this.$('.js-animatable'),
+                staggerOptions = {
+                    x: 0,
+                    opacity: 1,
+                    ease: Power4.easeIn
+                };
+
+            loader.staggerTo(
+                circles, // targets
+                1, // duration
+                staggerOptions, // options - what to animate, easing etc.
+                0.025, // stagger, amount of time between each element starting to move
+                0, // position of first tween in the timelines
+                function() {
+                    // callback on all complete
+                    console.log('done');
+                }
+            );
+
+            this.scenes.push(
+
+                new ScrollMagic.Scene({
+                    triggerElement: '.js-animate-trigger-1',
+                    triggerHook: 0.5,
+                })
+                .setTween(loader)
+                .addIndicators({
+                    'name' : 'Text animation'
+                })
+                .addTo(this.controller)
+
+            );
+
+        // define movement of panels
+        var wipeAnimation = new TimelineMax()
+            .fromTo('.js-green', 1, {x: '-100%'}, {x: '0%', ease: Linear.easeNone})  // in from left
+            .fromTo('.js-bordeaux',    1, {x:  '100%'}, {x: '0%', ease: Linear.easeNone}); // in from right
+
+            this.scenes.push(
+                // create scene to pin and link animation
+                new ScrollMagic.Scene({
+                        triggerElement: '.pin-container',
+                        triggerHook: 'onLeave',
+                        duration: '300%',
+                    })
+                    .setPin('.pin-container')
+                    .setTween(wipeAnimation)
+                    .addIndicators({
+                        'name' : 'wipes'
+                    }) // add indicators (requires plugin)
+                    .addTo(this.controller)
 
             );
 
