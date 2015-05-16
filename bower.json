@@ -10,7 +10,6 @@
     "requirejs": "~2.1.14",
     "requirejs-text": "~2.0.12",
     "backbone": "~1.1.2",
-    "velocity": "~1.2.2",
     "backbone-validation": "~0.9.1",
     "svg-injector": "~1.1.2",
     "jquery.parallaxify": "*",
