@@ -51,6 +51,13 @@ define([
         },
 
         /**
+         * resets all classes
+         */
+        _reset : function() {
+            this.$el.removeClass(this.classVisible).removeClass(this.classHidden);
+        },
+
+        /**
          * figures out whether we need to hide or show the header
          * called inside a requestAnimationFrame
          */
@@ -70,14 +77,13 @@ define([
                 }
 
             } else if (this.latestScrollY <= 0) { // at the top of the page
-
-                this.$el.removeClass(this.classVisible).removeClass(this.classHidden);
+                this._reset();
             }
 
             // if user is at the bottom of page show header
-            if ((window.innerHeight + this.latestScrollY) >= document.body.offsetHeight) {
+/*            if ((window.innerHeight + this.latestScrollY) >= document.body.offsetHeight) {
                 this.$el.removeClass(this.classHidden);
-            }
+            }*/
 
             this.previousY = this.latestScrollY; // update our Y position record
         },

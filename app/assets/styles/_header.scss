@@ -1,0 +1,21 @@
+
+.header {
+    width: 100%;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    background: #e7e7e7;
+    z-index: 3;
+    transition: all .2s;
+    will-change: transform, opacity;
+}
+
+.header--visible {
+    opacity: 1;
+    transform: translate(0,0);
+}
+
+.header--hidden {
+    opacity: 0;
+    transform: translate(0,-60px);
+}
