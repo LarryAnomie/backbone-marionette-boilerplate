@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Project One",
+    "name": "project-1",
+    "url": "/work/project-1",
+    "content": ""
+  },
+  {
+    "title": "Project Two",
+    "name": "project-2",
+    "url": "/work/project-2",
+    "content": ""
+  },
+  {
+    "title": "Project Three",
+    "name": "project-3",
+    "url": "/work/project-3",
+    "content": ""
+  }
+]

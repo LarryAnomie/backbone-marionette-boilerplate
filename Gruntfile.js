@@ -72,7 +72,7 @@ module.exports = function(grunt) {
                 hostname: 'localhost',
 
                 // http://danburzo.ro/grunt/chapters/server/
-/*                middleware: function(connect, options) {
+                /*                middleware: function(connect, options) {
 
                     var middleware = [];
 
@@ -105,10 +105,14 @@ module.exports = function(grunt) {
                             connect().use('/bower_components', connect.static('./bower_components')),
                             connect.static(config.app)
                         ];
-                    }
+                    },
+                    rules: [{
+                        from: '(^((?!css|html|js|img|fonts|\/$).)*$)',
+                        to: "$1.html"
+                    }]
                 }
             },
-            test: {
+            /*   test: {
                 options: {
                     open: false,
                     port: 9001,
@@ -121,7 +125,7 @@ module.exports = function(grunt) {
                         ];
                     }
                 }
-            },
+            },*/
             dist: {
                 options: {
                     base: '<%= config.dist %>',
