@@ -50,8 +50,11 @@ define([
 
     var prefixedTransform = vendorPrefix('transform');
 
+    var environment = 'dev';
+
     return {
-        baseTitle: 'Backbone Marionette Transitions',
+        baseTitle: 'App',
+        environemtn : environment,
         root: '',
         transitionend : transEndEventName,
         prefixedTransform : prefixedTransform,
