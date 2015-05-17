@@ -1,0 +1,108 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>App | Projects</title>
+    <meta name="description" content="Lorem ipsum.">
+    <meta name="viewport" content="width=device-width">
+    <!-- social media tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:title" content="App | Projects">
+    <meta name="twitter:description" content="Lorem ipsum">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:image:src" content="">
+    <meta property="og:title" content="App | Projects" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:description" content="Lorem ipsum.">
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- Add to Projectsscreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="196x196" href="/assets/images/touch/chrome-touch-icon-196x196.png">
+    <!-- Add to Projectsscreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="App">
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="/assets/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+    <!-- build:css(.tmp) /assets/styles/old-ie.css -->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/assets/styles/old-ie.css">
+    <![endif]-->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) /assets/styles/main.css -->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="/assets/styles/main.css">
+    <!--<![endif]-->
+    <!-- endbuild -->
+    <!-- build:js /assets/scripts/vendor/modernizr.js -->
+    <script src="/assets/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+</head>
+<body>
+    <div id="app" class="app">
+        <header id="header" class="js-header header">
+            <nav id="app-nav" class="js-nav">
+                <!--                     <ul class="app-nav__menu">
+                    <li class="app-nav__menu-item"><a href="/">Projects</a></li>
+                    <li class="app-nav__menu-item"><a href="/pages/about">About</a></li>
+                    <li class="app-nav__menu-item"><a href="/pages/contact">Contact</a></li>
+                </ul> -->
+            </nav>
+        </header>
+        <main id="main" class="js-main main">
+            <div id="page-Projects" class="page page--projects page--is-visible">
+                <article class="primary">
+                    <h1>Projects</h1>
+                </article>
+            </div>
+        </main>
+        <footer id="footer" class="js-footer footer">
+            <div class="js-footer-view footer__inner container">
+                <p>lorem ipsum footer content</p>
+                <img class="icon-svg" src="/assets/images/svg/social-medium-logo.svg">
+                <img class="icon-svg" src="/assets/images/svg/social-twitter-logo.svg">
+            </div>
+        </footer>
+    </div><!--/.app-->
+    <script>
+        var PROJECTS = [
+          {
+            "title": "Project One",
+            "name": "project-1",
+            "url": "/projects/project-1",
+            "content": ""
+          },
+          {
+            "title": "Project Two",
+            "name": "project-2",
+            "url": "/projects/project-2",
+            "content": ""
+          },
+          {
+            "title": "Project Three",
+            "name": "project-3",
+            "url": "/projects/project-3",
+            "content": ""
+          }
+        ];
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-5598802-4', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script data-main="/assets/scripts/main.js" src="/assets/scripts/require.js"></script>
+</body>
+</html>

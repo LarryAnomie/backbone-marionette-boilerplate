@@ -19,34 +19,31 @@ define([
 
         },
 
-        project : function(id, param) {
+        projects : function(pageName) {
 
-            console.log('router -->', id, param);
+            console.log('controller --> projects route', pageName);
 
             var projectModel, pageModel, projectName, data = [];
 
-            if (app.projects) {
+            pageName = 'projects';
 
-                if (id) {
-                    pageModel = app.pages.findWhere({
-                        name: id
-                    });
-                }
-            } else {
-                console.log('no project collection, so create it');
+            if (!app.projects) {
+                console.log('controller ---> no project collection, so create it');
 
-                if (window.PROJECTS) {
+/*                if (window.PROJECTS) {
                     data = window.PROJECTS;
-                }
+                }*/
 
-                app.projects = new ProjectCollection(data);
+                app.projects = new ProjectCollection();
+                app.projects.fetch({
+                    success: function() {
+                        console.log('fetch done');
+                    }
+                });
 
-                if (!window.PROJECTS) {
-                    app.projects.fetch();
-                }
             }
 
-// clear currently active model
+            // clear currently active model
             app.pages.findWhere({active: true}).set('active', false);
 
             pageModel = app.pages.findWhere({
@@ -59,11 +56,11 @@ define([
             if (isFirstView) {
                 isFirstView = false;
                 // view already exisits in the DOM, rendered by server
-                 app.rootView.mainRegion.attachView(new ProjectsPageView({
-                    model: pageModel,
-                    collection: app.projects,
-                    page: true,
-                    el : '#page-' + pageName
+                app.rootView.mainRegion.attachView(new ProjectsPageView({
+                            model: pageModel,
+                            collection: app.projects,
+                            page: true,
+                            el : '#page-' + pageName
                 }));
 
             } else {
@@ -75,11 +72,12 @@ define([
                 }));
             }
 
-
         },
 
-        home : function() {
+        home : function(pageName) {
             var pageModel, pageName;
+
+            console.log('home route --> ', pageName);
 
             pageName = 'home';
 
@@ -111,13 +109,11 @@ define([
             }
         },
 
-        /**
-         * generic page controller
-         * @param  {String} pageName
-         */
-        showPage: function(pageName) {
+        genericPage : function (pageName) {
 
             var pageModel;
+
+            console.log('genericPage route --> ', pageName)
 
             if (pageName === null) {
                 pageName = 'home';

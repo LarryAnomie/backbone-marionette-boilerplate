@@ -2,14 +2,59 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    overflow: hidden;
+    width: 100%;
 }
 
 .project {
     float: left;
+    text-align: center;
     list-style: none;
     overflow: hidden;
     position: relative;
     text-align: left;
     height: 368px;
-    padding: 40px 30px;
+    width: 100%;
+
+    @include respond-min(45em) {
+        width: 50%;
+    }
+
+    @include respond-min(65em) {
+        width: 33.3%;
+    }
 }
+
+.project__inner {
+    background: #333;
+    height: 100%;
+    width: 100%;
+}
+
+.project__inner--1 {
+
+}
+
+.project__inner--2 {
+    background: green;
+}
+
+
+.project__inner--3 {
+    background: red;
+}
+.project__meta {
+    a {
+       color: #fff;
+    }
+}
+
+.project__title {
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 auto;
+    padding-top: 4em;
+    font-size: 16px;
+}
+
+

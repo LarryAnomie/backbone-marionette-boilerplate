@@ -15,7 +15,7 @@
     <meta name="twitter:description" content="Lorem ipsum">
     <meta name="twitter:creator" content="">
     <meta name="twitter:image:src" content="">
-    <meta property="og:title" content="Ap | Projects" />
+    <meta property="og:title" content="App | Projects" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="" />
     <meta property="og:image" content="" />
@@ -23,26 +23,26 @@
     <link rel="shortcut icon" href="favicon.ico">
     <!-- Add to Projectsscreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="196x196" href="assets/images/touch/chrome-touch-icon-196x196.png">
+    <link rel="icon" sizes="196x196" href="/assets/images/touch/chrome-touch-icon-196x196.png">
     <!-- Add to Projectsscreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="App">
     <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="assets/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileImage" content="/assets/images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
-    <!-- build:css(.tmp) assets/styles/old-ie.css -->
+    <!-- build:css(.tmp) /assets/styles/old-ie.css -->
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="assets/styles/old-ie.css">
+    <link rel="stylesheet" href="/assets/styles/old-ie.css">
     <![endif]-->
     <!-- endbuild -->
-    <!-- build:css(.tmp) assets/styles/main.css -->
+    <!-- build:css(.tmp) /assets/styles/main.css -->
     <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="assets/styles/main.css">
+    <link rel="stylesheet" href="/assets/styles/main.css">
     <!--<![endif]-->
     <!-- endbuild -->
-    <!-- build:js assets/scripts/vendor/modernizr.js -->
-    <script src="assets/bower_components/modernizr/modernizr.js"></script>
+    <!-- build:js /assets/scripts/vendor/modernizr.js -->
+    <script src="/assets/bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
 </head>
 <body>
@@ -60,38 +60,59 @@
             <div id="page-Projects" class="page page--projects page--is-visible">
                 <article class="primary">
                     <h1>Projects</h1>
+                                        <div class="js-projects"><ul class="projects"><li class="project"><div id="project-" class="project__inner project__inner--1">
+    <a href="/work/project-1" title="Project One"></a>
+    <div class="project__meta">
+        <h2 class="project__title"><a href="/work/project-1" title="Project One">Project One</a></h2>
+    </div>
+</div>
+</li><li class="project"><div id="project-" class="project__inner project__inner--2">
+    <a href="/work/project-2" title="Project Two"></a>
+    <div class="project__meta">
+        <h2 class="project__title"><a href="/work/project-2" title="Project Two">Project Two</a></h2>
+    </div>
+</div>
+</li><li class="project"><div id="project-" class="project__inner project__inner--3">
+    <a href="/work/project-3" title="Project Three"></a>
+    <div class="project__meta">
+        <h2 class="project__title"><a href="/work/project-3" title="Project Three">Project Three</a></h2>
+    </div>
+</div>
+</li>
+</ul>
+</div>
                 </article>
             </div>
         </main>
         <footer id="footer" class="js-footer footer">
             <div class="js-footer-view footer__inner container">
                 <p>lorem ipsum footer content</p>
-                <img class="icon-svg" src="assets/images/svg/social-medium-logo.svg">
-                <img class="icon-svg" src="assets/images/svg/social-twitter-logo.svg">
+                <img class="icon-svg" src="/assets/images/svg/social-medium-logo.svg">
+                <img class="icon-svg" src="/assets/images/svg/social-twitter-logo.svg">
             </div>
         </footer>
     </div><!--/.app-->
     <script>
-var PROJECTS = [
-  {
-    "title": "Project One",
-    "name": "project-1",
-    "url": "/work/project-1",
-    "content": ""
-  },
-  {
-    "title": "Project Two",
-    "name": "project-2",
-    "url": "/work/project-2",
-    "content": ""
-  },
-  {
-    "title": "Project Three",
-    "name": "project-3",
-    "url": "/work/project-3",
-    "content": ""
-  }
-];
+        var PROJECTS = [
+          {
+            "title": "Project One",
+            "name": "project-1",
+            "url": "/projects/project-1",
+            "content": ""
+          },
+          {
+            "title": "Project Two",
+            "name": "project-2",
+            "url": "/projects/project-2",
+            "content": ""
+          },
+          {
+            "title": "Project Three",
+            "name": "project-3",
+            "url": "/projects/project-3",
+            "content": ""
+          }
+        ];
     </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -103,6 +124,6 @@ var PROJECTS = [
       ga('send', 'pageview');
 
     </script>
-    <script data-main="assets/scripts/main.js" src="assets/scripts/require.js"></script>
+    <script data-main="/assets/scripts/main.js" src="/assets/scripts/require.js"></script>
 </body>
 </html>

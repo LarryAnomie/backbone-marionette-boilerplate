@@ -58,9 +58,16 @@ define(['backbone', 'marionette'], function(Backbone, Marionette) {
         //'index' must be a method in AppRouter's controller
         appRoutes: {
             '' : 'home',
-            'pages/:pageName' : 'showPage',
-            'projects' : 'project',
-            'projects/:project' : 'project'
+            'pages/:pageName' : 'genericPage',
+            'projects(/)(:id)' : 'projects'
+        },
+
+        routes : {
+            '*notFound': 'notFound'
+        },
+
+        notFound : function(id, param) {
+            console.log('404', id, param);
         }
     });
 

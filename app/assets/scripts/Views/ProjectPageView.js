@@ -93,22 +93,6 @@ define(function(require) {
          */
         remove: function() {
 
-            var i = 0,
-                scenes = this.scenes,
-                scenesLength = scenes.length;
-
-            this.parallax.disable();
-
-            // destroy scrollMagic controller
-            this.controller.destroy(true);
-            this.controller = null;
-
-            // kill all scences
-            for (i; i < scenesLength; i++) {
-                scenes[i].destroy(false);
-                scenes[i] = null;
-            }
-
             // don't forget to call the original remove() function
             Backbone.View.prototype.remove.call(this);
         },
