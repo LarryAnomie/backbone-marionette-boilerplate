@@ -25,7 +25,11 @@ define([
 
             var projectModel, pageModel, projectName, data = [];
 
-            pageName = 'projects';
+            if (!pageName) {
+                 pageName = 'projects';
+            }
+
+            console.log(pageName);
 
             if (!app.projects) {
                 console.log('controller ---> no project collection, so create it');

@@ -44,8 +44,6 @@ define(function(require) {
                 collection : this.collection
             });
 
-
-
             this.getTitle = function() {
                 return this.model.attributes.title;
             };

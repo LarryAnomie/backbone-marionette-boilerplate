@@ -53,32 +53,6 @@ define(function(require) {
 
         },
 
-        // react to when a view has been shown
-        onShow: function() {
-        },
-
-        onAttach: function() {
-            console.log(this, 'onAttach');
-        },
-
-        onBeforeAttach: function() {
-            console.log(this, 'on before attach');
-        },
-
-
-        // css classes
-        classes: {
-            page: 'page',
-            animatingIn: 'page--is-entering',
-            animatingOut: 'page--is-exiting',
-            visible: 'page--is-visible'
-        },
-
-        afterShow: function() {
-            // no op
-        },
-
-
         /**
          *
          * kills this view, unbind any events and destroy stuff here
@@ -88,18 +62,6 @@ define(function(require) {
             this.undelegateEvents();
             // don't forget to call the original remove() function
             Backbone.View.prototype.remove.call(this);
-        },
-
-        onRender: function() {
-
-/*            var template = _.template(tmpl, this.model.attributes, {
-                variable: 'data'
-            });
-
-            this.$el.html(template);*/
-
-            return this.$el;
-
         }
 
     });
