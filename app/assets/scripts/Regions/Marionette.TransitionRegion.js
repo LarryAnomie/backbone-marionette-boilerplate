@@ -36,6 +36,8 @@ define([
         setQueue: function(view, options) {
             this._queuedView = view;
             this._queueOptions = options;
+
+            console.log('setQueue', this._queueOptions);
         },
 
         /**
@@ -94,12 +96,14 @@ define([
          */
         show: function(view, options) {
 
+            console.log(options);
+
             var currentView,
                 animateOut,
                 concurrent;
 
-/*            console.log('region --> about to show:', view);
-            console.log('region --> about to kill:', this.currentView);*/
+            /*            console.log('region --> about to show:', view);
+                        console.log('region --> about to kill:', this.currentView);*/
 
             // If animating out, set the animateInQueue.
             // This new view will be what is transitioned in
@@ -113,6 +117,7 @@ define([
             }
 
             console.log('region --> show, beyond initial check, at this point');
+
 
             this.setInQueue(view, options);
             this.isAnimatingOut = true;
@@ -140,7 +145,7 @@ define([
                 return this;
 
             } else if (animateOut && concurrent) {
-            // Otherwise, execute both transitions at the same time
+                // Otherwise, execute both transitions at the same time
 
                 // If the old view needs to stay e.g. a view transitions in over the top
                 // don't call this
@@ -149,7 +154,7 @@ define([
                 return this._onTransitionOut(currentView);
 
             } else {
-            // Otherwise, simply continue.
+                // Otherwise, simply continue.
                 return this._onTransitionOut();
             }
         },
@@ -172,7 +177,8 @@ define([
                 animatingIn,
                 _shouldDestroyView,
                 _shouldShowView,
-                transitionInCss;
+                transitionInCss,
+                shouldAnimate;
 
             console.log('region --> _onTransitionOut, old view =', oldView);
 
@@ -199,9 +205,11 @@ define([
 
             console.log('region --> is changing view = ', isChangingView);
 
+            console.log(showOptions.dontAnimate);
 
             // The region is only animating if there's an animateIn method on the new view
-            animatingIn = _.isFunction(view.animateIn);
+            // and we haven't been told to not animate in options object
+            animatingIn = _.isFunction(view.animateIn) && !showOptions.dontAnimate;
 
             // only destroy the view if we don't want to preventDestroy and the view is different
             _shouldDestroyView = !preventDestroy && isDifferentView && !this.getOption('concurrentTransition');
@@ -209,7 +217,7 @@ define([
 
             // Destroy the old view
             if (_shouldDestroyView) {
-                console.log('should destroy');
+
                 this.empty({
                     animate: false
                 });
@@ -264,7 +272,7 @@ define([
                 this.triggerMethod.call(view, 'show');
             }
 
-            // If there's an animateIn method, then call it and wait for it to complete
+            // If there's an animateIn method and we want to use it, then call it and wait for it to complete
             if (animatingIn) {
                 this.listenToOnce(view, 'animateIn', _.bind(this._onTransitionIn, this, showOptions));
                 view.animateIn();
