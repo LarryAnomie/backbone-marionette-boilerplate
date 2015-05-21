@@ -184,10 +184,11 @@ define(function(require) {
 
             );
 
-        // define movement of panels
-        var wipeAnimation = new TimelineMax()
-            .fromTo('.js-green', 1, {x: '-100%'}, {x: '0%', ease: Linear.easeNone})  // in from left
-            .fromTo('.js-bordeaux',    1, {x:  '100%'}, {x: '0%', ease: Linear.easeNone}); // in from right
+            // define movement of panels
+            var wipeAnimation = new TimelineMax()
+                .fromTo('.js-green', 1, {x: '-100%'}, {x: '0%', ease: Linear.easeNone})  // in from left
+                .fromTo('.js-bordeaux', 1, {x:  '100%'}, {x: '0%', ease: Linear.easeNone}); // in from right
+
 
             this.scenes.push(
                 // create scene to pin and link animation
@@ -205,17 +206,17 @@ define(function(require) {
 
             );
 
-/*            var slides = document.querySelectorAll('section.panel');
+            /*            var slides = document.querySelectorAll('section.panel');
 
-            // create scene for every slide
-            for (var i = 0; i < slides.length; i++) {
-                new ScrollMagic.Scene({
-                    triggerElement: slides[i]
-                })
-                    .setPin(slides[i])
-                    .addIndicators() // add indicators (requires plugin)
-                .addTo(this.controller);
-            }*/
+                        // create scene for every slide
+                        for (var i = 0; i < slides.length; i++) {
+                            new ScrollMagic.Scene({
+                                triggerElement: slides[i]
+                            })
+                                .setPin(slides[i])
+                                .addIndicators() // add indicators (requires plugin)
+                            .addTo(this.controller);
+                        }*/
 
 
         },

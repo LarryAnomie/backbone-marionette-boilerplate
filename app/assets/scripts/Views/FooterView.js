@@ -23,7 +23,11 @@ define([
             var mySVGsToInject = document.querySelectorAll('.icon-svg');
 
             // Do the injection
+
+            /* jshint ignore:start */
             SVGInjector(mySVGsToInject);
+            /* jshint ignore:end */
+
         },
 
 
@@ -32,13 +36,13 @@ define([
          * clean up view.
          *
          */
-/*        remove: function () {
+        /*        remove: function () {
 
-            console.log('home view remove fn')
+                    console.log('home view remove fn')
 
-            // don't forget to call the original remove() function
-            Backbone.View.prototype.remove.call(this);
-        },
+                    // don't forget to call the original remove() function
+                    Backbone.View.prototype.remove.call(this);
+                },
 */
         /**
          * called after view is added to DOM

@@ -3,7 +3,7 @@
 define(function () {
 
     'use strict';
-
+    // jscs:disable
     var projects = [
         {
             title: 'Project One',
@@ -22,6 +22,6 @@ define(function () {
             content : ""
         }
     ];
-
+    // jscs:enable
     return projects;
 });

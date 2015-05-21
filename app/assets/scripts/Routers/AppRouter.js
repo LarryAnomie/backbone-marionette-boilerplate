@@ -6,11 +6,11 @@ define(['backbone', 'marionette'], function(Backbone, Marionette) {
 
     var AppRouter = Backbone.Marionette.AppRouter.extend({
 
-        currentFragment : null,
+        currentFragment: null,
 
-        lastFragment : null,
+        lastFragment: null,
 
-        _setFragment : function(fragment) {
+        _setFragment: function(fragment) {
 
             if (fragment === this.lastFragment) {
                 console.log('going back');
@@ -19,15 +19,15 @@ define(['backbone', 'marionette'], function(Backbone, Marionette) {
             this.lastFragment = this.currentFragment;
             this.currentFragment = fragment;
 
-           console.log('router-->, last fragment = ', this.lastFragment, 'currentFragment = ', this.currentFragment)
+            console.log('router-->, last fragment = ', this.lastFragment, 'currentFragment = ', this.currentFragment);
 
         },
 
-        getFragment : function() {
+        getFragment: function() {
             return this.currentFragment;
         },
 
-        initialize : function(options) {
+        initialize: function(options) {
             var self = this;
 
             this.vent = options.vent;
@@ -42,7 +42,7 @@ define(['backbone', 'marionette'], function(Backbone, Marionette) {
                     fragment = 'home';
                 }
 
-                this._setFragment( fragment );
+                this._setFragment(fragment);
             });
         },
 
@@ -57,16 +57,16 @@ define(['backbone', 'marionette'], function(Backbone, Marionette) {
 
         //'index' must be a method in AppRouter's controller
         appRoutes: {
-            '' : 'home',
-            'pages/:pageName' : 'genericPage',
-            'projects(/)(:id)' : 'projects'
+            '': 'home',
+            'pages/:pageName': 'genericPage',
+            'projects(/)(:id)': 'projects'
         },
 
-        routes : {
+        routes: {
             '*notFound': 'notFound'
         },
 
-        notFound : function(id, param) {
+        notFound: function(id, param) {
             console.log('404', id, param);
         }
     });

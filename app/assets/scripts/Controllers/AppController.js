@@ -1,4 +1,4 @@
-/* global define, Modernizr */
+/* global define, Modernizr, console */
 
 define([
     'app',
@@ -26,7 +26,7 @@ define([
             var projectModel, pageModel, projectName, data = [];
 
             if (!pageName) {
-                 pageName = 'projects';
+                pageName = 'projects';
             }
 
             console.log(pageName);
@@ -34,9 +34,9 @@ define([
             if (!app.projects) {
                 console.log('controller ---> no project collection, so create it');
 
-/*                if (window.PROJECTS) {
-                    data = window.PROJECTS;
-                }*/
+                /*                if (window.PROJECTS) {
+                                    data = window.PROJECTS;
+                                }*/
 
                 app.projects = new ProjectCollection();
                 app.projects.fetch({
@@ -61,10 +61,10 @@ define([
                 isFirstView = false;
                 // view already exisits in the DOM, rendered by server
                 app.rootView.mainRegion.attachView(new ProjectsPageView({
-                            model: pageModel,
-                            collection: app.projects,
-                            page: true,
-                            el : '#page-' + pageName
+                    model: pageModel,
+                    collection: app.projects,
+                    page: true,
+                    el : '#page-' + pageName
                 }));
 
             } else {
@@ -79,7 +79,7 @@ define([
         },
 
         home : function(pageName) {
-            var pageModel, pageName;
+            var pageModel;
 
             console.log('home route --> ', pageName);
 
@@ -98,7 +98,7 @@ define([
             if (isFirstView) {
                 isFirstView = false;
                 // view already exisits in the DOM, rendered by server
-                 app.rootView.mainRegion.attachView(new HomeView({
+                app.rootView.mainRegion.attachView(new HomeView({
                     model: pageModel,
                     page: true,
                     el : '#page-' + pageName
@@ -117,7 +117,7 @@ define([
 
             var pageModel;
 
-            console.log('genericPage route --> ', pageName)
+            console.log('genericPage route --> ', pageName);
 
             if (pageName === null) {
                 pageName = 'home';
@@ -138,7 +138,7 @@ define([
             if (isFirstView) {
                 isFirstView = false;
                 // view already exisits in the DOM, rendered by server
-                 app.rootView.mainRegion.attachView(new PageView({
+                app.rootView.mainRegion.attachView(new PageView({
                     model: pageModel,
                     page: true,
                     el : '#page-' + pageName

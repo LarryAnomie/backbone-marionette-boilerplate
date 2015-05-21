@@ -1,0 +1,12 @@
+{
+    "requireCurlyBraces": null,
+    "disallowMixedSpacesAndTabs": true,
+    "validateQuoteMarks": "'",
+    "disallowEmptyBlocks" : true,
+    "requireParenthesesAroundIIFE": true,
+    "validateIndentation": 4,
+    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "validateLineBreaks": "LF",
+    "requireSpaceAfterKeywords": [ "if", "else", "for", "while", "do", "switch", "return" ],
+    "requireCurlyBraces": [ "if", "else", "for", "while", "do" ]
+}

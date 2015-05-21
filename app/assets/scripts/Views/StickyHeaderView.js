@@ -1,4 +1,4 @@
-/* global define, Modernizr */
+/* global define, Modernizr, requestAnimationFrame */
 
 define([
     'jquery',
@@ -81,10 +81,10 @@ define([
             }
 
             // if user is at the bottom of page show header
-/*            if ((window.innerHeight + this.latestScrollY) >= document.body.offsetHeight) {
-                this.$el.removeClass(this.classHidden);
-            }*/
-
+            /*            if ((window.innerHeight + this.latestScrollY) >= document.body.offsetHeight) {
+                            this.$el.removeClass(this.classHidden);
+                        }*/
+                        
             this.previousY = this.latestScrollY; // update our Y position record
         },
 

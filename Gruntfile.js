@@ -30,7 +30,7 @@ module.exports = function(grunt) {
         watch: {
             js: {
                 files: ['<%= config.app %>/assets/scripts/{,*/}*.js'],
-                tasks: ['jshint'],
+                tasks: ['jshint', 'jscs'],
                 options: {
                     livereload: true
                 }
@@ -108,7 +108,7 @@ module.exports = function(grunt) {
                     },
                     rules: [{
                         from: '(^((?!css|html|js|img|fonts|\/$).)*$)',
-                        to: "$1.html"
+                        to: '$1.html'
                     }]
                 }
             },
@@ -162,6 +162,22 @@ module.exports = function(grunt) {
                 '!<%= config.app %>/assets/scripts/require.js',
                 'test/spec/{,*/}*.js'
             ]
+        },
+
+        // make sure code follows our style guide
+        jscs: {
+            options: {
+                config: '.jscsrc',
+            },
+            files: {
+                src: [
+                    'Gruntfile.js',
+                    '<%= config.app %>/assets/scripts/{,*/}*.js',
+                    '!<%= config.app %>/assets/scripts/vendor/*',
+                    '!<%= config.app %>/assets/scripts/require.js',
+                    'test/spec/{,*/}*.js'
+                ]
+            }
         },
 
         // Mocha testing framework configuration options
@@ -273,22 +289,6 @@ module.exports = function(grunt) {
         //    }
         //},
 
-        iconizr: {
-            spriteSass: {
-                src: ['<%= config.app %>/assets/images/svg/src'],
-                dest: '<%= config.app %>/assets/images/svg/dist',
-                options: {
-                    preview: '../preview', // location of preview folder
-                    dims: true, // dimensions added to generated css
-                    keep: true, // keep individual svgs, not just the generated sprite
-                    render: {
-                        css: '', // no css
-                        scss: '../../../styles/icons/_icons'
-                    },
-                    verbose: 1
-                }
-            }
-        },
 
         // minifies html
         htmlmin: {
@@ -402,7 +402,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-iconizr');
+    grunt.loadNpmTasks('grunt-jscs-checker');
 
     grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function(target) {
         if (grunt.option('allow-remote')) {
@@ -449,7 +449,6 @@ module.exports = function(grunt) {
         'concat',
         'cssmin',
         'uglify',
-        'iconizr',
         'copy:dist',
         'modernizr',
         'requirejs',
@@ -461,6 +460,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', [
         'newer:jshint',
+        'newer:jscs',
         //'test',
         'build'
     ]);
