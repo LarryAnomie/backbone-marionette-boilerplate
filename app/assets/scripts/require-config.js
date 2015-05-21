@@ -25,7 +25,8 @@ require.config({
         TimelineMax : '../bower_components/greensock/src/uncompressed/TimelineMax',
         EasePack : '../bower_components/greensock/src/uncompressed/easing/EasePack',
         ScrollToPlugin : 'vendor/ScrollToPlugin',
-        Parallax : '../bower_components/paralaxJS/deploy/parallax'
+        Parallax : '../bower_components/paralaxJS/deploy/parallax',
+        Tracking : 'modules/Tracking'
     },
     shim: {
         'modernizr': {
@@ -41,9 +42,9 @@ require.config({
         'parallaxify' : {
             deps : ['jquery']
         },
-/*        'TweenMax': {
-            exports: 'TweenMax'
-        },*/
+        /*        'TweenMax': {
+                    exports: 'TweenMax'
+                },*/
         'Parallax' : {
             exports : 'Parallax'
         }

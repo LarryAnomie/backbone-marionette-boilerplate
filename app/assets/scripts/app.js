@@ -18,7 +18,7 @@ define(function(require) {
     var SVGInjector= require('SVGInjector');
     var FooterView = require('Views/FooterView');
     var StickyHeaderView = require('Views/StickyHeaderView');
-    var Tracking = require('config/Tracking');
+    var Tracking = require('Tracking');
 
     var app = new Marionette.Application();
 
