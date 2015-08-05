@@ -6,9 +6,9 @@ define([
     'marionette',
     '../Views/HomeView',
     '../Views/PageView',
-    '../Views/ProjectPageView',
+    '../Views/ProjectsView',
     '../Collections/ProjectCollection'
-], function(app, Backbone, Marionette, HomeView, PageView, ProjectsPageView, ProjectCollection) {
+], function(app, Backbone, Marionette, HomeView, PageView, ProjectsView, ProjectCollection) {
     'use strict';
 
     var isFirstView = true; // flag to keep track of whether this is a server route or client side
@@ -60,7 +60,7 @@ define([
             if (isFirstView) {
                 isFirstView = false;
                 // view already exisits in the DOM, rendered by server
-                app.rootView.mainRegion.attachView(new ProjectsPageView({
+                app.rootView.mainRegion.attachView(new ProjectsView({
                     model: pageModel,
                     collection: app.projects,
                     page: true,
@@ -68,7 +68,7 @@ define([
                 }));
 
             } else {
-                app.rootView.mainRegion.show(new ProjectsPageView({
+                app.rootView.mainRegion.show(new ProjectsView({
                     model: pageModel,
                     collection : app.projects,
                     page: true,

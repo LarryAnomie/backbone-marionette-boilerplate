@@ -9,6 +9,6 @@ define([
     return Backbone.Collection.extend({
         model: ProjectModel,
 
-        url : '/assets/scripts/projects.json'
+        url : '/api/projects.json'
     });
 });

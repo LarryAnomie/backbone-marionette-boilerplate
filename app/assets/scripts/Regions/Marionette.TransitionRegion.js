@@ -139,6 +139,7 @@ define([
             if (animateOut && !concurrent) {
 
                 this.listenToOnce(currentView, 'animateOut', _.bind(this._onTransitionOut, this));
+                console.log('animate out');
                 currentView.animateOut();
 
                 // Return this for backwards compat
@@ -275,12 +276,11 @@ define([
             // If there's an animateIn method and we want to use it, then call it and wait for it to complete
             if (animatingIn) {
                 this.listenToOnce(view, 'animateIn', _.bind(this._onTransitionIn, this, showOptions));
+                console.log('animate in');
                 view.animateIn();
                 return this;
-            }
-
-            // Otherwise, continue on
-            else {
+            } else {
+                // Otherwise, continue on
                 return this._onTransitionIn(showOptions);
             }
         },

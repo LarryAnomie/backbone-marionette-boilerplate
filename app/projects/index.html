@@ -57,30 +57,61 @@
             </nav>
         </header>
         <main id="main" class="js-main main">
-            <div id="page-Projects" class="page page--projects page--is-visible">
+            <div id="page-projects" class="page page--projects page--is-visible">
                 <article class="primary">
                     <h1>Projects</h1>
-                                        <div class="js-projects"><ul class="projects"><li class="project"><div id="project-" class="project__inner project__inner--1">
-    <a href="/work/project-1" title="Project One"></a>
-    <div class="project__meta">
-        <h2 class="project__title"><a href="/work/project-1" title="Project One">Project One</a></h2>
-    </div>
-</div>
-</li><li class="project"><div id="project-" class="project__inner project__inner--2">
-    <a href="/work/project-2" title="Project Two"></a>
-    <div class="project__meta">
-        <h2 class="project__title"><a href="/work/project-2" title="Project Two">Project Two</a></h2>
-    </div>
-</div>
-</li><li class="project"><div id="project-" class="project__inner project__inner--3">
-    <a href="/work/project-3" title="Project Three"></a>
-    <div class="project__meta">
-        <h2 class="project__title"><a href="/work/project-3" title="Project Three">Project Three</a></h2>
-    </div>
-</div>
-</li>
-</ul>
-</div>
+                    <div class="js-projects">
+                        <ul class="projects">
+                            <li class="project">
+                                <div id="project-1" class="project__inner project__inner--1">
+                                    <a href="/work/project-1" title="Project One"></a>
+                                    <div class="project__meta">
+                                        <h2 class="project__title"><a href="/work/project-1" title="Project One">Project One</a></h2>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="project">
+                                <div id="project-2" class="project__inner project__inner--2">
+                                    <a href="/work/project-2" title="Project Two"></a>
+                                    <div class="project__meta">
+                                        <h2 class="project__title"><a href="/work/project-2" title="Project Two">Project Two</a></h2>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="project">
+                                <div id="project-3" class="project__inner project__inner--3">
+                                    <a href="/work/project-3" title="Project Three"></a>
+                                    <div class="project__meta">
+                                        <h2 class="project__title"><a href="/work/project-3" title="Project Three">Project Three</a></h2>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="project">
+                                <div id="project-4" class="project__inner project__inner--4">
+                                    <a href="/work/project-4" title="Project Four"></a>
+                                    <div class="project__meta">
+                                        <h2 class="project__title"><a href="/work/project-4" title="Project Four">Project Four</a></h2>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="project">
+                                <div id="project-5" class="project__inner project__inner--5">
+                                    <a href="/work/project-3" title="Project Five"></a>
+                                    <div class="project__meta">
+                                        <h2 class="project__title"><a href="/work/project-5" title="Project Five">Project Five</a></h2>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="project">
+                                <div id="project-3" class="project__inner project__inner--6">
+                                    <a href="/work/project-6" title="Project Six"></a>
+                                    <div class="project__meta">
+                                        <h2 class="project__title"><a href="/work/project-6" title="Project Six">Project Six</a></h2>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </article>
             </div>
         </main>
@@ -92,38 +123,49 @@
             </div>
         </footer>
     </div><!--/.app-->
-    <script>
-        var PROJECTS = [
-          {
-            "title": "Project One",
-            "name": "project-1",
-            "url": "/projects/project-1",
-            "content": ""
-          },
-          {
-            "title": "Project Two",
-            "name": "project-2",
-            "url": "/projects/project-2",
-            "content": ""
-          },
-          {
-            "title": "Project Three",
-            "name": "project-3",
-            "url": "/projects/project-3",
-            "content": ""
-          }
-        ];
-    </script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-5598802-4', 'auto');
-      ga('send', 'pageview');
-
-    </script>
-    <script data-main="/assets/scripts/main.js" src="/assets/scripts/require.js"></script>
+<script>
+var PROJECTS = [
+{
+        "title": "Project One",
+        "name": "project-1",
+        "url": "/projects/project-1",
+        "content": ""
+    }, {
+        "title": "Project Two",
+        "name": "project-2",
+        "url": "/projects/project-2",
+        "content": ""
+    }, {
+        "title": "Project Three",
+        "name": "project-3",
+        "url": "/projects/project-3",
+        "content": ""
+    }, {
+        "title": "Project Four",
+        "name": "project-4",
+        "url": "/projects/project-4",
+        "content": ""
+    }, {
+        "title": "Project Five",
+        "name": "project-5",
+        "url": "/projects/project-5",
+        "content": ""
+    }, {
+        "title": "Project Six",
+        "name": "project-6",
+        "url": "/projects/project-6",
+        "content": ""
+    }
+];
+</script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-5598802-4', 'auto');
+ga('send', 'pageview');
+</script>
+<script data-main="/assets/scripts/main.js" src="/assets/scripts/require.js"></script>
 </body>
 </html>
