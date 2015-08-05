@@ -16,7 +16,7 @@ define([
 
     'use strict';
 
-    var ExtendView = Backbone.Marionette.View.extend({
+    var ExtendView = Backbone.Marionette.ItemView.extend({
 
         className: '',
 
@@ -273,22 +273,6 @@ define([
         attachView: function() {
             //console.log('view was already in DOM');
             this.onShow();
-        },
-
-        /**
-         * called by region show method, not called when view already exisits in the dom
-         * @return {Object} $el
-         */
-        render: function() {
-
-            var template = _.template(tmpl, this.model.attributes, {
-                variable: 'data'
-            });
-
-            this.$el.html(template);
-
-            return this.$el;
-
         }
 
     });

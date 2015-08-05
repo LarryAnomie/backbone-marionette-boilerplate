@@ -16,6 +16,8 @@ define([
 
         className: '',
 
+        template : _.template(tmpl),
+
         initialize: function(options) {
 
             if (options.page) {
@@ -42,8 +44,6 @@ define([
         onBeforeAttach: function() {
             console.log(this, 'on before attach');
         },
-
-/*s*/
 
         getTitle: function() {
             return this.model.attributes.title;

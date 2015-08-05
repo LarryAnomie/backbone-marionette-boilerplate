@@ -32,6 +32,8 @@ define(function(require) {
 
         className: '',
 
+        template : _.template(tmpl),
+
         initialize: function(options) {
 
             if (options.page) {
@@ -108,13 +110,7 @@ define(function(require) {
          * called by region show method, not called when view already exisits in the dom
          * @return {Object} $el
          */
-        render: function() {
-
-            var template = _.template(tmpl, this.model.attributes, {
-                variable: 'data'
-            });
-
-            this.$el.html(template);
+        onRender: function() {
 
             this.$('.js-projects').append( this.collectionView.render().el );
 

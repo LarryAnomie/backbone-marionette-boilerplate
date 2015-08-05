@@ -36,6 +36,8 @@ define(function(require) {
 
         className: '',
 
+        template : _.template(tmpl),
+
         initialize: function(options) {
 
             if (options.page) {
@@ -335,7 +337,7 @@ define(function(require) {
          * called by region show method, not called when view already exisits in the dom
          * @return {Object} $el
          */
-        render: function() {
+/*        render: function() {
 
             var template = _.template(tmpl, this.model.attributes, {
                 variable: 'data'
@@ -346,7 +348,7 @@ define(function(require) {
             return this.$el;
 
         }
-
+*/
     });
 
     return HomeView;
